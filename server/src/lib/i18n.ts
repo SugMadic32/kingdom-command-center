@@ -1,0 +1,75 @@
+/** Server-side wording for notifications. Each member gets them in their own language. */
+export type Lang = 'en' | 'ko' | 'fr' | 'id';
+export const LANGS: Lang[] = ['en', 'ko', 'fr', 'id'];
+
+type Tpl = Record<Lang, { title: string; body?: string }>;
+const templates: Record<string, Tpl> = {
+  event_published_kingdom: {
+    en: { title: 'New kingdom event: {title}', body: 'Starts {time} UTC.' },
+    ko: { title: '새 왕국 이벤트: {title}', body: '시작: {time} UTC' },
+    fr: { title: 'Nouvel événement du royaume : {title}', body: 'Début : {time} UTC.' },
+    id: { title: 'Acara kerajaan baru: {title}', body: 'Mulai {time} UTC.' },
+  },
+  event_published_alliance: {
+    en: { title: 'New alliance event: {title}', body: 'Starts {time} UTC.' },
+    ko: { title: '새 연맹 이벤트: {title}', body: '시작: {time} UTC' },
+    fr: { title: "Nouvel événement d'alliance : {title}", body: 'Début : {time} UTC.' },
+    id: { title: 'Acara aliansi baru: {title}', body: 'Mulai {time} UTC.' },
+  },
+  event_changed: {
+    en: { title: 'Rescheduled: {title}', body: 'New time: {time} UTC.' },
+    ko: { title: '일정 변경: {title}', body: '새 시간: {time} UTC' },
+    fr: { title: 'Reprogrammé : {title}', body: 'Nouvel horaire : {time} UTC.' },
+    id: { title: 'Dijadwal ulang: {title}', body: 'Waktu baru: {time} UTC.' },
+  },
+  event_cancelled: {
+    en: { title: 'Cancelled: {title}', body: '{reason}' },
+    ko: { title: '취소됨: {title}', body: '{reason}' },
+    fr: { title: 'Annulé : {title}', body: '{reason}' },
+    id: { title: 'Dibatalkan: {title}', body: '{reason}' },
+  },
+  event_proposed: {
+    en: { title: 'Event proposed: {title}', body: 'Proposed by {name}. Review it before it can be published.' },
+    ko: { title: '이벤트 제안: {title}', body: '{name} 님이 제안했습니다. 게시하기 전에 검토하세요.' },
+    fr: { title: 'Événement proposé : {title}', body: 'Proposé par {name}. Vérifiez-le avant sa publication.' },
+    id: { title: 'Acara diusulkan: {title}', body: 'Diusulkan oleh {name}. Tinjau sebelum dipublikasikan.' },
+  },
+  assignment: {
+    en: { title: 'Assignment for {title}', body: '{assignment}' },
+    ko: { title: '{title} 배정', body: '{assignment}' },
+    fr: { title: 'Affectation pour {title}', body: '{assignment}' },
+    id: { title: 'Tugas untuk {title}', body: '{assignment}' },
+  },
+  appointment_reminder: {
+    en: { title: 'Your appointment starts in {mins} min: {position}', body: '{schedule} · {time} UTC' },
+    ko: { title: '{mins}분 후 임명 시작: {position}', body: '{schedule} · {time} UTC' },
+    fr: { title: 'Votre nomination commence dans {mins} min : {position}', body: '{schedule} · {time} UTC' },
+    id: { title: 'Jabatan Anda dimulai dalam {mins} menit: {position}', body: '{schedule} · {time} UTC' },
+  },
+  appointment_assigned: {
+    en: { title: 'You were given {position}', body: '{schedule} · {time} UTC' },
+    ko: { title: '{position}에 배정되었습니다', body: '{schedule} · {time} UTC' },
+    fr: { title: 'Vous avez reçu {position}', body: '{schedule} · {time} UTC' },
+    id: { title: 'Anda mendapat {position}', body: '{schedule} · {time} UTC' },
+  },
+  appointment_removed: {
+    en: { title: 'Your {position} slot was removed', body: '{schedule} · {time} UTC' },
+    ko: { title: '{position} 시간대가 취소되었습니다', body: '{schedule} · {time} UTC' },
+    fr: { title: 'Votre créneau {position} a été retiré', body: '{schedule} · {time} UTC' },
+    id: { title: 'Slot {position} Anda dihapus', body: '{schedule} · {time} UTC' },
+  },
+  reminder: {
+    en: { title: 'Starting in {mins} min: {title}' },
+    ko: { title: '{mins}분 후 시작: {title}' },
+    fr: { title: 'Commence dans {mins} min : {title}' },
+    id: { title: 'Mulai dalam {mins} menit: {title}' },
+  },
+};
+
+export function render(lang: string, key: string, params: Record<string, string | number> = {}) {
+  const tpl = templates[key];
+  if (!tpl) return null;
+  const t = tpl[(LANGS as string[]).includes(lang) ? (lang as Lang) : 'en'];
+  const fill = (s?: string) => (s ?? '').replace(/\{(\w+)\}/g, (_, k) => String(params[k] ?? '')).trim();
+  return { title: fill(t.title), body: fill(t.body) };
+}

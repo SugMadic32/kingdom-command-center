@@ -1,0 +1,2 @@
+building,level,bread,wood,stone,iron,truegold,tempered_truegold,duration_seconds,prerequisites,status,source_url,source_checked_at,game_version,notes
+town_center,2,,,,,,,,,missing,,,,"Replace with audited values. One row = cost to upgrade from level 1 to level 2."

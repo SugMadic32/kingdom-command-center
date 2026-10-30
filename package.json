@@ -1,0 +1,12 @@
+{
+  "name": "kingdom-command-center",
+  "private": true,
+  "scripts": {
+    "install:all": "npm --prefix server install && npm --prefix web install",
+    "dev:api": "npm --prefix server run dev",
+    "dev:web": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "start": "npm --prefix server start",
+    "test": "npm --prefix server test"
+  }
+}

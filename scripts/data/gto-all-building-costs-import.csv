@@ -1,0 +1,131 @@
+building,level,bread,wood,stone,iron,truegold,tempered_truegold,duration_seconds,prerequisites,status,source_url,source_checked_at,game_version,notes
+town_center,1,0,0,0,0,,,0,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: Instant. Values appear rounded in source. From GTO starter workbook.
+town_center,2,0,180,0,0,,,6,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 6s. Values appear rounded in source. From GTO starter workbook.
+town_center,3,0,805,0,0,,,60,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 1m. Values appear rounded in source. From GTO starter workbook.
+town_center,4,0,1800,360,0,,,180,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 3m. Values appear rounded in source. From GTO starter workbook.
+town_center,5,0,7600,1500,0,,,600,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 10m. Values appear rounded in source. From GTO starter workbook.
+town_center,6,0,19000,3800,960,,,1800,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 30m. Values appear rounded in source. From GTO starter workbook.
+town_center,7,0,69000,13000,3400,,,3600,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 1h. Values appear rounded in source. From GTO starter workbook.
+town_center,8,0,120000,25000,6300,,,9000,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 2h 30m. Values appear rounded in source. From GTO starter workbook.
+town_center,9,0,260000,52000,13000,,,16200,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 4h 30m. Values appear rounded in source. From GTO starter workbook.
+town_center,10,0,460000,92000,23000,,,21600,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 6h. Values appear rounded in source. From GTO starter workbook.
+town_center,11,1300000,1300000,200000,65000,,,27000,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 7h 30m. Values appear rounded in source. From GTO starter workbook.
+town_center,12,1600000,1600000,330000,84000,,,32400,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 9h. Values appear rounded in source. From GTO starter workbook.
+town_center,13,2300000,2300000,470000,110000,,,39600,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 11h. Values appear rounded in source. From GTO starter workbook.
+town_center,14,3100000,3100000,630000,150000,,,50400,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 14h. Values appear rounded in source. From GTO starter workbook.
+town_center,15,4600000,4600000,930000,230000,,,64800,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 18h. Values appear rounded in source. From GTO starter workbook.
+town_center,16,5900000,5900000,1100000,290000,,,109680,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 1d 6h 28m. Values appear rounded in source. From GTO starter workbook.
+town_center,17,9300000,9300000,1800000,480000,,,131040,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 1d 12h 24m. Values appear rounded in source. From GTO starter workbook.
+town_center,18,12000000,12000000,2500000,620000,,,157380,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 1d 19h 43m. Values appear rounded in source. From GTO starter workbook.
+town_center,19,15000000,15000000,3100000,780000,,,236400,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 2d 17h 40m. Values appear rounded in source. From GTO starter workbook.
+town_center,20,21000000,21000000,4300000,1000000,,,294600,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 3d 9h 50m. Values appear rounded in source. From GTO starter workbook.
+town_center,21,27000000,27000000,5400000,1300000,,,380340,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 4d 9h 39m. Values appear rounded in source. From GTO starter workbook.
+town_center,22,36000000,36000000,7200000,1800000,,,572940,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 6d 15h 9m. Values appear rounded in source. From GTO starter workbook.
+town_center,23,44000000,44000000,8900000,2200000,,,806400,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 9d 8h. Values appear rounded in source. From GTO starter workbook.
+town_center,24,60000000,60000000,12000000,3000000,,,1127580,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 13d 1h 13m. Values appear rounded in source. From GTO starter workbook.
+town_center,25,81000000,81000000,16000000,4000000,,,1584120,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 18d 8h 2m. Values appear rounded in source. From GTO starter workbook.
+town_center,26,100000000,100000000,21000000,5200000,,,1818360,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 21d 1h 6m. Values appear rounded in source. From GTO starter workbook.
+town_center,27,140000000,140000000,24000000,7400000,,,2185980,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 25d 7h 13m. Values appear rounded in source. From GTO starter workbook.
+town_center,28,190000000,190000000,39000000,9900000,,,2507520,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 29d 32m. Values appear rounded in source. From GTO starter workbook.
+town_center,29,240000000,240000000,49000000,12000000,,,2894520,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 33d 12h 2m. Values appear rounded in source. From GTO starter workbook.
+academy,1,0,105,0,0,,,2,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 2s. Values appear rounded in source. From GTO starter workbook.
+academy,2,0,160,0,0,,,9,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 9s. Values appear rounded in source. From GTO starter workbook.
+academy,3,0,725,0,0,,,45,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 45s. Values appear rounded in source. From GTO starter workbook.
+academy,4,0,1600,320,0,,,135,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 2m 15s. Values appear rounded in source. From GTO starter workbook.
+academy,5,0,6800,1300,0,,,270,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 4m 30s. Values appear rounded in source. From GTO starter workbook.
+academy,6,0,17000,3400,860,,,540,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 9m. Values appear rounded in source. From GTO starter workbook.
+academy,7,0,62000,12000,3100,,,1080,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 18m. Values appear rounded in source. From GTO starter workbook.
+academy,8,0,110000,22000,5600,,,1620,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 27m. Values appear rounded in source. From GTO starter workbook.
+academy,9,0,230000,47000,11000,,,2430,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 40m 30s. Values appear rounded in source. From GTO starter workbook.
+academy,10,0,410000,82000,20000,,,3240,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 54m. Values appear rounded in source. From GTO starter workbook.
+academy,11,520000,520000,100000,26000,,,4020,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1h 7m. Values appear rounded in source. From GTO starter workbook.
+academy,12,670000,670000,130000,33000,,,4860,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1h 21m. Values appear rounded in source. From GTO starter workbook.
+academy,13,950000,950000,190000,47000,,,5940,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1h 39m. Values appear rounded in source. From GTO starter workbook.
+academy,14,1200000,1200000,250000,63000,,,7560,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 2h 6m. Values appear rounded in source. From GTO starter workbook.
+academy,15,1800000,1800000,370000,93000,,,9720,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 2h 42m. Values appear rounded in source. From GTO starter workbook.
+academy,16,2300000,2300000,470000,110000,,,16440,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 4h 34m. Values appear rounded in source. From GTO starter workbook.
+academy,17,3700000,3700000,740000,180000,,,19740,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 5h 29m. Values appear rounded in source. From GTO starter workbook.
+academy,18,5000000,5000000,1000000,250000,,,23700,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 6h 35m. Values appear rounded in source. From GTO starter workbook.
+academy,19,6200000,6200000,1200000,310000,,,35520,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 9h 52m. Values appear rounded in source. From GTO starter workbook.
+academy,20,8600000,8600000,1700000,430000,,,44400,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 12h 20m. Values appear rounded in source. From GTO starter workbook.
+academy,21,10000000,10000000,2100000,540000,,,57720,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 16h 2m. Values appear rounded in source. From GTO starter workbook.
+academy,22,14000000,14000000,2800000,720000,,,86640,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1d 4m. Values appear rounded in source. From GTO starter workbook.
+academy,23,17000000,17000000,3500000,890000,,,121320,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1d 9h 42m. Values appear rounded in source. From GTO starter workbook.
+academy,24,24000000,24000000,4800000,1200000,,,169860,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1d 23h 11m. Values appear rounded in source. From GTO starter workbook.
+academy,25,32000000,32000000,6500000,1600000,,,237780,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 2d 18h 3m. Values appear rounded in source. From GTO starter workbook.
+academy,26,42000000,42000000,8400000,2100000,,,273420,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 3d 3h 57m. Values appear rounded in source. From GTO starter workbook.
+academy,27,59000000,59000000,11000000,2900000,,,328140,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 3d 19h 9m. Values appear rounded in source. From GTO starter workbook.
+academy,28,79000000,79000000,15000000,3900000,,,377340,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 4d 8h 49m. Values appear rounded in source. From GTO starter workbook.
+academy,29,98000000,98000000,19000000,4900000,,,433980,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 5d 33m. Values appear rounded in source. From GTO starter workbook.
+academy,30,120000000,120000000,24000000,6000000,,,520800,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 6d 40m. Values appear rounded in source. From GTO starter workbook.
+storehouse,1,0,60,0,0,,,2,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 2s. Values appear rounded in source. From GTO starter workbook.
+storehouse,2,0,90,0,0,,,9,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 9s. Values appear rounded in source. From GTO starter workbook.
+storehouse,3,0,400,0,0,,,45,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 45s. Values appear rounded in source. From GTO starter workbook.
+storehouse,4,0,900,180,0,,,135,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 2m 15s. Values appear rounded in source. From GTO starter workbook.
+storehouse,5,0,3800,760,0,,,270,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 4m 30s. Values appear rounded in source. From GTO starter workbook.
+storehouse,6,0,9600,1900,480,,,540,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 9m. Values appear rounded in source. From GTO starter workbook.
+storehouse,7,0,34000,6900,1700,,,1080,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 18m. Values appear rounded in source. From GTO starter workbook.
+storehouse,8,0,63000,12000,3100,,,1620,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 27m. Values appear rounded in source. From GTO starter workbook.
+storehouse,9,0,130000,26000,6500,,,2430,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 40m 30s. Values appear rounded in source. From GTO starter workbook.
+storehouse,10,0,230000,46000,11000,,,3240,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 54m. Values appear rounded in source. From GTO starter workbook.
+storehouse,11,290000,290000,57000,14000,,,4020,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1h 7m. Values appear rounded in source. From GTO starter workbook.
+storehouse,12,370000,370000,74000,18000,,,4860,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1h 21m. Values appear rounded in source. From GTO starter workbook.
+storehouse,13,520000,520000,100000,26000,,,5940,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1h 39m. Values appear rounded in source. From GTO starter workbook.
+storehouse,14,690000,690000,130000,34000,,,7560,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 2h 6m. Values appear rounded in source. From GTO starter workbook.
+storehouse,15,1000000,1000000,200000,51000,,,9720,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 2h 42m. Values appear rounded in source. From GTO starter workbook.
+storehouse,16,1300000,1300000,260000,65000,,,16440,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 4h 34m. Values appear rounded in source. From GTO starter workbook.
+storehouse,17,2000000,2000000,400000,100000,,,19740,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 5h 29m. Values appear rounded in source. From GTO starter workbook.
+storehouse,18,2700000,2700000,550000,130000,,,23700,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 6h 35m. Values appear rounded in source. From GTO starter workbook.
+storehouse,19,3400000,3400000,690000,170000,,,35520,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 9h 52m. Values appear rounded in source. From GTO starter workbook.
+storehouse,20,4700000,4700000,940000,230000,,,44400,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 12h 20m. Values appear rounded in source. From GTO starter workbook.
+storehouse,21,6000000,6000000,1200000,300000,,,57720,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 16h 2m. Values appear rounded in source. From GTO starter workbook.
+storehouse,22,7900000,7900000,1500000,390000,,,86640,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1d 4m. Values appear rounded in source. From GTO starter workbook.
+storehouse,23,9800000,9800000,1900000,490000,,,121320,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1d 9h 42m. Values appear rounded in source. From GTO starter workbook.
+storehouse,24,13000000,13000000,2600000,660000,,,169860,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1d 23h 11m. Values appear rounded in source. From GTO starter workbook.
+storehouse,25,17000000,17000000,3500000,890000,,,237780,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 2d 18h 3m. Values appear rounded in source. From GTO starter workbook.
+storehouse,26,23000000,23000000,4600000,1100000,,,273420,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 3d 3h 57m. Values appear rounded in source. From GTO starter workbook.
+storehouse,27,32000000,32000000,6500000,1600000,,,328140,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 3d 19h 9m. Values appear rounded in source. From GTO starter workbook.
+storehouse,28,43000000,43000000,8700000,2100000,,,377340,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 4d 8h 49m. Values appear rounded in source. From GTO starter workbook.
+storehouse,29,54000000,54000000,10000000,2700000,,,433980,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 5d 33m. Values appear rounded in source. From GTO starter workbook.
+town_center,TG1,,,,,660,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+town_center,TG2,,,,,790,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+town_center,TG3,,,,,1190,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+town_center,TG4,,,,,1400,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+town_center,TG5,,,,,1675,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+town_center,TG6,,,,,900,60,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+embassy,TG1,,,,,165,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+embassy,TG2,,,,,195,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+embassy,TG3,,,,,295,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+embassy,TG4,,,,,350,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+embassy,TG5,,,,,415,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+embassy,TG6,,,,,225,13,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+command_center,TG1,,,,,130,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+command_center,TG2,,,,,155,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+command_center,TG3,,,,,235,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+command_center,TG4,,,,,280,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+command_center,TG5,,,,,335,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+command_center,TG6,,,,,180,12,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+infirmary,TG1,,,,,130,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+infirmary,TG2,,,,,155,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+infirmary,TG3,,,,,235,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+infirmary,TG4,,,,,280,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+infirmary,TG5,,,,,335,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+infirmary,TG6,,,,,180,12,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+barracks,TG1,,,,,295,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+barracks,TG2,,,,,355,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+barracks,TG3,,,,,535,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+barracks,TG4,,,,,630,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+barracks,TG5,,,,,750,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+barracks,TG6,,,,,405,25,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+stable,TG1,,,,,295,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+stable,TG2,,,,,355,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+stable,TG3,,,,,535,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+stable,TG4,,,,,630,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+stable,TG5,,,,,750,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+stable,TG6,,,,,405,25,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+range,TG1,,,,,295,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+range,TG2,,,,,355,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+range,TG3,,,,,535,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+range,TG4,,,,,630,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+range,TG5,,,,,750,0,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."
+range,TG6,,,,,405,25,,,in_game_confirmed,,2026-10-29,,"Total Truegold for the tier, from in-game screenshots (GTO). Other resources and build time not recorded yet."

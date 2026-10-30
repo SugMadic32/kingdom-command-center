@@ -1,0 +1,15 @@
+export const config = {
+  version: '1.5.1',
+  port: Number(process.env.PORT ?? 4000),
+  databaseUrl: process.env.DATABASE_URL ?? 'postgres://kc:kc@localhost:5432/kingdom',
+  isProd: process.env.NODE_ENV === 'production',
+  appUrl: process.env.APP_URL ?? 'http://localhost:5173',
+  sessionDays: Number(process.env.SESSION_DAYS ?? 30),
+  vapidPublic: process.env.VAPID_PUBLIC_KEY ?? '',
+  vapidPrivate: process.env.VAPID_PRIVATE_KEY ?? '',
+  vapidSubject: process.env.VAPID_SUBJECT ?? 'mailto:admin@example.com',
+  discordToken: process.env.DISCORD_BOT_TOKEN ?? '',
+  discordAppId: process.env.DISCORD_APP_ID ?? '',
+  discordGuildId: process.env.DISCORD_GUILD_ID ?? '',
+  runJobs: process.env.RUN_JOBS !== 'false',
+};
