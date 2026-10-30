@@ -92,9 +92,9 @@ export function SettingsPage() {
 
           <Panel title={t('Privacy')}>
             <div className="stack">
-              <p className="muted small">{t('Your inventory and building levels are private by default. Sharing only reaches the R4/R5 of your own alliance, never the whole kingdom.')}</p>
-              <label className="radio"><input type="checkbox" checked={p.share_inventory} onChange={(e) => save({ share_inventory: e.target.checked }, e.target.checked ? t('Inventory shared with alliance leaders') : t('Inventory is private.'))} /> {t('Share my inventory with my alliance leaders')}</label>
-              <label className="radio"><input type="checkbox" checked={p.share_buildings} onChange={(e) => save({ share_buildings: e.target.checked }, e.target.checked ? t('Building levels shared') : t('Building levels are private'))} /> {t('Share my building levels with my alliance leaders')}</label>
+              <p className="muted small">{t('Sharing lets your alliance R4/R5 and the kingdom admin see your resources and building levels, so they can plan upgrades with you. Other members never see them.')}</p>
+              <label className="radio"><input type="checkbox" checked={p.share_inventory} onChange={(e) => save({ share_inventory: e.target.checked }, e.target.checked ? t('Inventory shared with alliance leaders') : t('Inventory is private.'))} /> {t('Share my resources with leaders')}</label>
+              <label className="radio"><input type="checkbox" checked={p.share_buildings} onChange={(e) => save({ share_buildings: e.target.checked }, e.target.checked ? t('Building levels shared') : t('Building levels are private'))} /> {t('Share my building levels with leaders')}</label>
               <p className="muted small">{t('Individual plans are shared from the plan page.')}</p>
             </div>
           </Panel>

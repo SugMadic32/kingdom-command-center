@@ -62,6 +62,19 @@ adminRouter.post('/users/:id/reset-link', requireAdmin, h(async (req, res) => {
   res.json({ url: `${config.appUrl}/reset-password?token=${token}`, expires_in_hours: 24 });
 }));
 
+// ---------- Kingdom settings ----------
+adminRouter.get('/kingdom-settings', requireAdmin, h(async (_req, res) => {
+  const s = await one<{ value: any }>(`SELECT value FROM integration_settings WHERE key = 'kingdom'`);
+  res.json({ share_default: s?.value?.share_default !== false });
+}));
+adminRouter.put('/kingdom-settings', requireAdmin, h(async (req, res) => {
+  const b = z.object({ share_default: z.boolean() }).parse(req.body);
+  await q(`INSERT INTO integration_settings (key, value, updated_by) VALUES ('kingdom',$1,$2)
+           ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_by = EXCLUDED.updated_by, updated_at = now()`, [b, req.user!.id]);
+  await audit(req.user!.id, 'update', 'integration', 'kingdom', b);
+  res.json({ ok: true });
+}));
+
 // ---------- Integrations ----------
 adminRouter.get('/integrations', requirePerm('integration_manager'), h(async (_req, res) => {
   const discord = await one(`SELECT value, updated_at FROM integration_settings WHERE key = 'discord'`);

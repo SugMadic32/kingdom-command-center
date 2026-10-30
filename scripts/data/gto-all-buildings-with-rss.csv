@@ -1,0 +1,312 @@
+building,level,bread,wood,stone,iron,truegold,tempered_truegold,duration_seconds,prerequisites,status,source_url,source_checked_at,game_version,notes
+town_center,1,0,0,0,0,,,0,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: Instant. Values appear rounded in source. From GTO starter workbook.
+town_center,2,0,180,0,0,,,6,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 6s. Values appear rounded in source. From GTO starter workbook.
+town_center,3,0,805,0,0,,,60,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 1m. Values appear rounded in source. From GTO starter workbook.
+town_center,4,0,1800,360,0,,,180,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 3m. Values appear rounded in source. From GTO starter workbook.
+town_center,5,0,7600,1500,0,,,600,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 10m. Values appear rounded in source. From GTO starter workbook.
+town_center,6,0,19000,3800,960,,,1800,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 30m. Values appear rounded in source. From GTO starter workbook.
+town_center,7,0,69000,13000,3400,,,3600,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 1h. Values appear rounded in source. From GTO starter workbook.
+town_center,8,0,120000,25000,6300,,,9000,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 2h 30m. Values appear rounded in source. From GTO starter workbook.
+town_center,9,0,260000,52000,13000,,,16200,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 4h 30m. Values appear rounded in source. From GTO starter workbook.
+town_center,10,0,460000,92000,23000,,,21600,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 6h. Values appear rounded in source. From GTO starter workbook.
+town_center,11,1300000,1300000,200000,65000,,,27000,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 7h 30m. Values appear rounded in source. From GTO starter workbook.
+town_center,12,1600000,1600000,330000,84000,,,32400,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 9h. Values appear rounded in source. From GTO starter workbook.
+town_center,13,2300000,2300000,470000,110000,,,39600,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 11h. Values appear rounded in source. From GTO starter workbook.
+town_center,14,3100000,3100000,630000,150000,,,50400,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 14h. Values appear rounded in source. From GTO starter workbook.
+town_center,15,4600000,4600000,930000,230000,,,64800,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 18h. Values appear rounded in source. From GTO starter workbook.
+town_center,16,5900000,5900000,1100000,290000,,,109680,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 1d 6h 28m. Values appear rounded in source. From GTO starter workbook.
+town_center,17,9300000,9300000,1800000,480000,,,131040,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 1d 12h 24m. Values appear rounded in source. From GTO starter workbook.
+town_center,18,12000000,12000000,2500000,620000,,,157380,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 1d 19h 43m. Values appear rounded in source. From GTO starter workbook.
+town_center,19,15000000,15000000,3100000,780000,,,236400,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 2d 17h 40m. Values appear rounded in source. From GTO starter workbook.
+town_center,20,21000000,21000000,4300000,1000000,,,294600,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 3d 9h 50m. Values appear rounded in source. From GTO starter workbook.
+town_center,21,27000000,27000000,5400000,1300000,,,380340,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 4d 9h 39m. Values appear rounded in source. From GTO starter workbook.
+town_center,22,36000000,36000000,7200000,1800000,,,572940,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 6d 15h 9m. Values appear rounded in source. From GTO starter workbook.
+town_center,23,44000000,44000000,8900000,2200000,,,806400,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 9d 8h. Values appear rounded in source. From GTO starter workbook.
+town_center,24,60000000,60000000,12000000,3000000,,,1127580,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 13d 1h 13m. Values appear rounded in source. From GTO starter workbook.
+town_center,25,81000000,81000000,16000000,4000000,,,1584120,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 18d 8h 2m. Values appear rounded in source. From GTO starter workbook.
+town_center,26,100000000,100000000,21000000,5200000,,,1818360,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 21d 1h 6m. Values appear rounded in source. From GTO starter workbook.
+town_center,27,140000000,140000000,24000000,7400000,,,2185980,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 25d 7h 13m. Values appear rounded in source. From GTO starter workbook.
+town_center,28,190000000,190000000,39000000,9900000,,,2507520,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 29d 32m. Values appear rounded in source. From GTO starter workbook.
+town_center,29,240000000,240000000,49000000,12000000,,,2894520,,single_source,https://www.kingshottips.com/buildings/town-center,2026-10-29,,Source time: 33d 12h 2m. Values appear rounded in source. From GTO starter workbook.
+academy,1,0,105,0,0,,,2,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 2s. Values appear rounded in source. From GTO starter workbook.
+academy,2,0,160,0,0,,,9,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 9s. Values appear rounded in source. From GTO starter workbook.
+academy,3,0,725,0,0,,,45,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 45s. Values appear rounded in source. From GTO starter workbook.
+academy,4,0,1600,320,0,,,135,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 2m 15s. Values appear rounded in source. From GTO starter workbook.
+academy,5,0,6800,1300,0,,,270,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 4m 30s. Values appear rounded in source. From GTO starter workbook.
+academy,6,0,17000,3400,860,,,540,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 9m. Values appear rounded in source. From GTO starter workbook.
+academy,7,0,62000,12000,3100,,,1080,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 18m. Values appear rounded in source. From GTO starter workbook.
+academy,8,0,110000,22000,5600,,,1620,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 27m. Values appear rounded in source. From GTO starter workbook.
+academy,9,0,230000,47000,11000,,,2430,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 40m 30s. Values appear rounded in source. From GTO starter workbook.
+academy,10,0,410000,82000,20000,,,3240,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 54m. Values appear rounded in source. From GTO starter workbook.
+academy,11,520000,520000,100000,26000,,,4020,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1h 7m. Values appear rounded in source. From GTO starter workbook.
+academy,12,670000,670000,130000,33000,,,4860,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1h 21m. Values appear rounded in source. From GTO starter workbook.
+academy,13,950000,950000,190000,47000,,,5940,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1h 39m. Values appear rounded in source. From GTO starter workbook.
+academy,14,1200000,1200000,250000,63000,,,7560,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 2h 6m. Values appear rounded in source. From GTO starter workbook.
+academy,15,1800000,1800000,370000,93000,,,9720,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 2h 42m. Values appear rounded in source. From GTO starter workbook.
+academy,16,2300000,2300000,470000,110000,,,16440,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 4h 34m. Values appear rounded in source. From GTO starter workbook.
+academy,17,3700000,3700000,740000,180000,,,19740,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 5h 29m. Values appear rounded in source. From GTO starter workbook.
+academy,18,5000000,5000000,1000000,250000,,,23700,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 6h 35m. Values appear rounded in source. From GTO starter workbook.
+academy,19,6200000,6200000,1200000,310000,,,35520,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 9h 52m. Values appear rounded in source. From GTO starter workbook.
+academy,20,8600000,8600000,1700000,430000,,,44400,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 12h 20m. Values appear rounded in source. From GTO starter workbook.
+academy,21,10000000,10000000,2100000,540000,,,57720,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 16h 2m. Values appear rounded in source. From GTO starter workbook.
+academy,22,14000000,14000000,2800000,720000,,,86640,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1d 4m. Values appear rounded in source. From GTO starter workbook.
+academy,23,17000000,17000000,3500000,890000,,,121320,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1d 9h 42m. Values appear rounded in source. From GTO starter workbook.
+academy,24,24000000,24000000,4800000,1200000,,,169860,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 1d 23h 11m. Values appear rounded in source. From GTO starter workbook.
+academy,25,32000000,32000000,6500000,1600000,,,237780,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 2d 18h 3m. Values appear rounded in source. From GTO starter workbook.
+academy,26,42000000,42000000,8400000,2100000,,,273420,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 3d 3h 57m. Values appear rounded in source. From GTO starter workbook.
+academy,27,59000000,59000000,11000000,2900000,,,328140,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 3d 19h 9m. Values appear rounded in source. From GTO starter workbook.
+academy,28,79000000,79000000,15000000,3900000,,,377340,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 4d 8h 49m. Values appear rounded in source. From GTO starter workbook.
+academy,29,98000000,98000000,19000000,4900000,,,433980,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 5d 33m. Values appear rounded in source. From GTO starter workbook.
+academy,30,120000000,120000000,24000000,6000000,,,520800,,single_source,https://www.kingshottips.com/buildings/academy,2026-10-29,,Source time: 6d 40m. Values appear rounded in source. From GTO starter workbook.
+storehouse,1,0,60,0,0,,,2,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 2s. Values appear rounded in source. From GTO starter workbook.
+storehouse,2,0,90,0,0,,,9,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 9s. Values appear rounded in source. From GTO starter workbook.
+storehouse,3,0,400,0,0,,,45,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 45s. Values appear rounded in source. From GTO starter workbook.
+storehouse,4,0,900,180,0,,,135,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 2m 15s. Values appear rounded in source. From GTO starter workbook.
+storehouse,5,0,3800,760,0,,,270,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 4m 30s. Values appear rounded in source. From GTO starter workbook.
+storehouse,6,0,9600,1900,480,,,540,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 9m. Values appear rounded in source. From GTO starter workbook.
+storehouse,7,0,34000,6900,1700,,,1080,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 18m. Values appear rounded in source. From GTO starter workbook.
+storehouse,8,0,63000,12000,3100,,,1620,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 27m. Values appear rounded in source. From GTO starter workbook.
+storehouse,9,0,130000,26000,6500,,,2430,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 40m 30s. Values appear rounded in source. From GTO starter workbook.
+storehouse,10,0,230000,46000,11000,,,3240,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 54m. Values appear rounded in source. From GTO starter workbook.
+storehouse,11,290000,290000,57000,14000,,,4020,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1h 7m. Values appear rounded in source. From GTO starter workbook.
+storehouse,12,370000,370000,74000,18000,,,4860,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1h 21m. Values appear rounded in source. From GTO starter workbook.
+storehouse,13,520000,520000,100000,26000,,,5940,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1h 39m. Values appear rounded in source. From GTO starter workbook.
+storehouse,14,690000,690000,130000,34000,,,7560,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 2h 6m. Values appear rounded in source. From GTO starter workbook.
+storehouse,15,1000000,1000000,200000,51000,,,9720,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 2h 42m. Values appear rounded in source. From GTO starter workbook.
+storehouse,16,1300000,1300000,260000,65000,,,16440,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 4h 34m. Values appear rounded in source. From GTO starter workbook.
+storehouse,17,2000000,2000000,400000,100000,,,19740,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 5h 29m. Values appear rounded in source. From GTO starter workbook.
+storehouse,18,2700000,2700000,550000,130000,,,23700,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 6h 35m. Values appear rounded in source. From GTO starter workbook.
+storehouse,19,3400000,3400000,690000,170000,,,35520,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 9h 52m. Values appear rounded in source. From GTO starter workbook.
+storehouse,20,4700000,4700000,940000,230000,,,44400,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 12h 20m. Values appear rounded in source. From GTO starter workbook.
+storehouse,21,6000000,6000000,1200000,300000,,,57720,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 16h 2m. Values appear rounded in source. From GTO starter workbook.
+storehouse,22,7900000,7900000,1500000,390000,,,86640,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1d 4m. Values appear rounded in source. From GTO starter workbook.
+storehouse,23,9800000,9800000,1900000,490000,,,121320,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1d 9h 42m. Values appear rounded in source. From GTO starter workbook.
+storehouse,24,13000000,13000000,2600000,660000,,,169860,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 1d 23h 11m. Values appear rounded in source. From GTO starter workbook.
+storehouse,25,17000000,17000000,3500000,890000,,,237780,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 2d 18h 3m. Values appear rounded in source. From GTO starter workbook.
+storehouse,26,23000000,23000000,4600000,1100000,,,273420,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 3d 3h 57m. Values appear rounded in source. From GTO starter workbook.
+storehouse,27,32000000,32000000,6500000,1600000,,,328140,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 3d 19h 9m. Values appear rounded in source. From GTO starter workbook.
+storehouse,28,43000000,43000000,8700000,2100000,,,377340,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 4d 8h 49m. Values appear rounded in source. From GTO starter workbook.
+storehouse,29,54000000,54000000,10000000,2700000,,,433980,,single_source,https://www.kingshottips.com/buildings/storehouse,2026-10-29,,Source time: 5d 33m. Values appear rounded in source. From GTO starter workbook.
+town_center,30,300000000,300000000,60000000,15000000,,,3472020,,single_source,https://www.kingshotguide.org/buildings/town-center,2026-10-30,,From kingshotguide.org.
+town_center,TG1,335000000,335000000,65000000,16500000,660,0,3024000,,single_source,https://www.kingshotguide.org/buildings/town-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+town_center,TG2,360000000,360000000,70000000,18000000,790,0,3888000,,single_source,https://www.kingshotguide.org/buildings/town-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+town_center,TG3,395000000,395000000,75000000,19500000,1190,0,4752000,,single_source,https://www.kingshotguide.org/buildings/town-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+town_center,TG4,410000000,410000000,80000000,20500000,1400,0,5184000,,single_source,https://www.kingshotguide.org/buildings/town-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+town_center,TG5,420000000,420000000,80000000,21000000,1675,0,6048000,,single_source,https://www.kingshotguide.org/buildings/town-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+town_center,TG6,480000000,480000000,95000000,24000000,900,60,6480000,,single_source,https://www.kingshotguide.org/buildings/town-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+embassy,1,0,60,0,0,,,2,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,2,0,90,0,0,,,10,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,3,0,400,0,0,,,60,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,4,0,900,180,0,,,120,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,5,0,3800,760,0,,,400,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,6,0,9600,1900,480,,,800,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,7,0,34000,6900,1700,,,1500,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,8,0,63000,12000,3100,,,2700,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,9,0,130000,26000,6500,,,7200,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,10,0,230000,46000,11000,,,14250,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,11,260000,260000,52000,13000,,,17820,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,12,330000,330000,67000,16000,,,21360,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,13,470000,470000,95000,23000,,,26130,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,14,630000,630000,120000,31000,,,33240,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,15,930000,930000,180000,46000,,,42750,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,16,1100000,1100000,230000,59000,,,71000,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,17,1800000,1800000,370000,93000,,,86880,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,18,2500000,2500000,500000,120000,,,104280,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,19,3100000,3100000,620000,150000,,,156420,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,20,4300000,4300000,860000,210000,,,195540,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,21,5400000,5400000,1000000,270000,,,254160,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,22,7200000,7200000,1400000,360000,,,381300,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,23,8900000,8900000,1700000,440000,,,533820,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,24,12000000,12000000,2400000,600000,,,747360,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,25,16000000,16000000,3200000,810000,,,1046280,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,26,21000000,21000000,4200000,1000000,,,1203240,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,27,29000000,29000000,5900000,1400000,,,1443900,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,28,39000000,39000000,7900000,1900000,,,1660500,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,29,49000000,49000000,9800000,2400000,,,1909560,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,30,60000000,60000000,12000000,3000000,,,2291520,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,From kingshotguide.org.
+embassy,TG1,65000000,65000000,13500000,3350000,165,0,1995600,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+embassy,TG2,70000000,70000000,14500000,3600000,195,0,2565900,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+embassy,TG3,75000000,75000000,15500000,3950000,295,0,3136200,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+embassy,TG4,80000000,80000000,16000000,4100000,350,0,3421200,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+embassy,TG5,80000000,80000000,16500000,4200000,415,0,3991500,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+embassy,TG6,95000000,95000000,19000000,4800000,225,13,4276800,,single_source,https://www.kingshotguide.org/buildings/embassy,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+command_center,1,0,80,0,0,,,2,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,2,0,125,0,0,,,8,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,3,0,565,0,0,,,35,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,4,0,1200,250,0,,,105,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,5,0,5300,1000,0,,,215,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,6,0,13000,2600,670,,,430,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,7,0,48000,9600,2400,,,840,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,8,0,88000,17000,4400,,,1290,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,9,0,180000,36000,9100,,,1920,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,10,0,320000,64000,16000,,,2580,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,11,390000,390000,79000,19000,,,3240,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,12,500000,500000,100000,25000,,,3870,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,13,710000,710000,140000,35000,,,4740,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,14,940000,940000,180000,47000,,,6030,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,15,1300000,1300000,270000,69000,,,7770,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,16,1700000,1700000,350000,89000,,,13140,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,17,2700000,2700000,550000,130000,,,15780,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,18,3700000,3700000,750000,180000,,,18960,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,19,4700000,4700000,940000,230000,,,28440,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,20,6400000,6400000,1200000,320000,,,35520,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,21,8100000,8100000,1600000,400000,,,46200,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,22,10000000,10000000,2100000,540000,,,69330,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,23,13000000,13000000,2600000,670000,,,97020,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,24,18000000,18000000,3600000,900000,,,135840,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,25,24000000,24000000,4900000,1200000,,,190200,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,26,31000000,31000000,6300000,1500000,,,218760,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,27,44000000,44000000,8900000,2200000,,,262500,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,28,59000000,59000000,11000000,2900000,,,301860,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,29,73000000,73000000,14000000,3600000,,,347160,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,30,90000000,90000000,18000000,4500000,,,416640,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,From kingshotguide.org.
+command_center,TG1,100000000,100000000,20000000,5000000,130,0,362850,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Tempered Truegold for TG6 from GTO in-game table (source has no Tempered column).
+command_center,TG2,105000000,105000000,21500000,5000000,155,0,466500,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Tempered Truegold for TG6 from GTO in-game table (source has no Tempered column).
+command_center,TG3,115000000,115000000,23500000,5500000,235,0,570000,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Tempered Truegold for TG6 from GTO in-game table (source has no Tempered column).
+command_center,TG4,120000000,120000000,24500000,6000000,280,0,621900,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Tempered Truegold for TG6 from GTO in-game table (source has no Tempered column).
+command_center,TG5,125000000,125000000,25000000,6000000,335,0,725700,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Tempered Truegold for TG6 from GTO in-game table (source has no Tempered column).
+command_center,TG6,145000000,145000000,29000000,7000000,180,12,777600,,single_source,https://www.kingshotguide.org/buildings/command-center,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Tempered Truegold for TG6 from GTO in-game table (source has no Tempered column).
+infirmary,1,0,0,0,0,,,0,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,2,0,100,0,0,,,,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org. Build time not given on the source.
+infirmary,3,0,460,0,0,,,,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org. Build time not given on the source.
+infirmary,4,0,1000,205,0,,,120,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,5,0,4300,865,0,,,240,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,6,0,10000,2100,545,,,480,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,7,0,39000,7800,1900,,,960,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,8,0,72000,14000,3600,,,1500,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,9,0,140000,29000,7400,,,2220,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,10,0,260000,52000,13000,,,3000,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,11,320000,320000,65000,16000,,,3780,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,12,420000,420000,84000,21000,,,4500,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,13,590000,590000,110000,29000,,,5520,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,14,780000,780000,150000,39000,,,7020,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,15,1100000,1100000,230000,58000,,,9060,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,16,1400000,1400000,290000,74000,,,15360,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,17,2300000,2300000,460000,100000,,,18420,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,18,3100000,3100000,620000,150000,,,22080,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,19,3900000,3900000,780000,190000,,,33180,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,20,5300000,5300000,1000000,260000,,,41460,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,21,6800000,6800000,1300000,340000,,,53880,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,22,9000000,9000000,1800000,450000,,,80880,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,23,11000000,11000000,2200000,560000,,,113220,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,24,15000000,15000000,3000000,750000,,,158520,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,25,20000000,20000000,4000000,1000000,,,221940,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,26,26000000,26000000,5200000,1300000,,,255240,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,27,37000000,37000000,7400000,1800000,,,306240,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,28,49000000,49000000,9900000,2400000,,,352200,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,29,61000000,61000000,12000000,3000000,,,405060,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,30,75000000,75000000,15000000,3700000,,,486060,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,From kingshotguide.org.
+infirmary,TG1,80000000,80000000,16500000,4200000,130,0,423300,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+infirmary,TG2,90000000,90000000,18000000,4500000,155,0,544200,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+infirmary,TG3,95000000,95000000,19500000,4950000,235,0,665100,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+infirmary,TG4,100000000,100000000,20500000,5000000,280,0,725700,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+infirmary,TG5,105000000,105000000,21000000,5000000,335,0,846600,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+infirmary,TG6,120000000,120000000,24000000,6000000,180,12,907200,,single_source,https://www.kingshotguide.org/buildings/infirmary,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+barracks,1,0,0,0,0,,,2,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,2,0,140,0,0,,,9,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,3,0,645,0,0,,,45,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,4,0,1400,285,0,,,135,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,5,0,6000,1200,0,,,270,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,6,0,15000,3000,765,,,540,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,7,0,55000,11000,2700,,,1080,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,8,0,100000,20000,5000,,,1620,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,9,0,200000,41000,10000,,,2430,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,10,0,360000,73000,18000,,,3240,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,11,460000,460000,92000,23000,,,4050,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,12,580000,580000,110000,29000,,,4860,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,13,830000,830000,160000,41000,,,5940,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,14,1100000,1100000,220000,55000,,,7560,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,15,1600000,1600000,320000,81000,,,9720,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,16,2000000,2000000,410000,100000,,,16440,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,17,3200000,3200000,650000,160000,,,19740,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,18,4300000,4300000,870000,210000,,,23700,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,19,5400000,5400000,1000000,270000,,,35550,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,20,7500000,7500000,1500000,370000,,,44430,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,21,9500000,9500000,1900000,470000,,,57750,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,22,12000000,12000000,2500000,630000,,,86640,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,23,15000000,15000000,3100000,780000,,,121320,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,24,21000000,21000000,4200000,1000000,,,169860,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,25,28000000,28000000,5700000,1400000,,,237780,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,26,36000000,36000000,7300000,1800000,,,273420,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,27,52000000,52000000,10000000,2600000,,,328140,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,28,69000000,69000000,13000000,3400000,,,377340,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,29,86000000,86000000,17000000,4300000,,,433980,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,30,100000000,100000000,21000000,5800000,,,520800,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,From kingshotguide.org.
+barracks,TG1,115000000,115000000,23500000,5500000,295,0,453600,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+barracks,TG2,125000000,125000000,25000000,6000000,355,0,583200,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+barracks,TG3,135000000,135000000,27500000,6500000,535,0,712800,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+barracks,TG4,140000000,140000000,28500000,7000000,630,0,777600,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+barracks,TG5,145000000,145000000,29500000,7000000,750,0,907200,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+barracks,TG6,165000000,165000000,33500000,8000000,405,25,972000,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. 
+range,1,0,0,0,0,,,2,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,2,0,140,0,0,,,9,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,3,0,645,0,0,,,45,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,4,0,1400,285,0,,,135,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,5,0,6000,1200,0,,,270,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,6,0,15000,3000,765,,,540,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,7,0,55000,11000,2700,,,1080,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,8,0,100000,20000,5000,,,1620,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,9,0,200000,41000,10000,,,2430,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,10,0,360000,73000,18000,,,3240,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,11,460000,460000,92000,23000,,,4050,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,12,580000,580000,110000,29000,,,4860,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,13,830000,830000,160000,41000,,,5940,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,14,1100000,1100000,220000,55000,,,7560,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,15,1600000,1600000,320000,81000,,,9720,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,16,2000000,2000000,410000,100000,,,16440,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,17,3200000,3200000,650000,160000,,,19740,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,18,4300000,4300000,870000,210000,,,23700,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,19,5400000,5400000,1000000,270000,,,35550,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,20,7500000,7500000,1500000,370000,,,44430,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,21,9500000,9500000,1900000,470000,,,57750,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,22,12000000,12000000,2500000,630000,,,86640,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,23,15000000,15000000,3100000,780000,,,121320,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,24,21000000,21000000,4200000,1000000,,,169860,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,25,28000000,28000000,5700000,1400000,,,237780,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,26,36000000,36000000,7300000,1800000,,,273420,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,27,52000000,52000000,10000000,2600000,,,328140,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,28,69000000,69000000,13000000,3400000,,,377340,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,29,86000000,86000000,17000000,4300000,,,433980,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,30,100000000,100000000,21000000,5800000,,,520800,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,From kingshotguide.org (identical to Barracks).
+range,TG1,115000000,115000000,23500000,5500000,295,0,453600,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Identical to Barracks on the source.
+range,TG2,125000000,125000000,25000000,6000000,355,0,583200,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Identical to Barracks on the source.
+range,TG3,135000000,135000000,27500000,6500000,535,0,712800,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Identical to Barracks on the source.
+range,TG4,140000000,140000000,28500000,7000000,630,0,777600,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Identical to Barracks on the source.
+range,TG5,145000000,145000000,29500000,7000000,750,0,907200,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Identical to Barracks on the source.
+range,TG6,165000000,165000000,33500000,8000000,405,25,972000,,single_source,https://www.kingshotguide.org/buildings/range,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Identical to Barracks on the source.
+stable,1,0,0,0,0,,,2,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,2,0,140,0,0,,,9,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,3,0,645,0,0,,,45,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,4,0,1400,285,0,,,135,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,5,0,6000,1200,0,,,270,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,6,0,15000,3000,765,,,540,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,7,0,55000,11000,2700,,,1080,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,8,0,100000,20000,5000,,,1620,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,9,0,200000,41000,10000,,,2430,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,10,0,360000,73000,18000,,,3240,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,11,460000,460000,92000,23000,,,4050,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,12,580000,580000,110000,29000,,,4860,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,13,830000,830000,160000,41000,,,5940,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,14,1100000,1100000,220000,55000,,,7560,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,15,1600000,1600000,320000,81000,,,9720,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,16,2000000,2000000,410000,100000,,,16440,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,17,3200000,3200000,650000,160000,,,19740,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,18,4300000,4300000,870000,210000,,,23700,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,19,5400000,5400000,1000000,270000,,,35550,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,20,7500000,7500000,1500000,370000,,,44430,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,21,9500000,9500000,1900000,470000,,,57750,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,22,12000000,12000000,2500000,630000,,,86640,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,23,15000000,15000000,3100000,780000,,,121320,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,24,21000000,21000000,4200000,1000000,,,169860,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,25,28000000,28000000,5700000,1400000,,,237780,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,26,36000000,36000000,7300000,1800000,,,273420,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,27,52000000,52000000,10000000,2600000,,,328140,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,28,69000000,69000000,13000000,3400000,,,377340,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,29,86000000,86000000,17000000,4300000,,,433980,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,30,100000000,100000000,21000000,5800000,,,520800,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Assumed identical to Barracks and Range (both identical on the source; in-game Truegold is identical too). Check one level in game.
+stable,TG1,115000000,115000000,23500000,5500000,295,0,453600,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Assumed identical to Barracks and Range. Check one tier in game.
+stable,TG2,125000000,125000000,25000000,6000000,355,0,583200,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Assumed identical to Barracks and Range. Check one tier in game.
+stable,TG3,135000000,135000000,27500000,6500000,535,0,712800,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Assumed identical to Barracks and Range. Check one tier in game.
+stable,TG4,140000000,140000000,28500000,7000000,630,0,777600,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Assumed identical to Barracks and Range. Check one tier in game.
+stable,TG5,145000000,145000000,29500000,7000000,750,0,907200,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Assumed identical to Barracks and Range. Check one tier in game.
+stable,TG6,165000000,165000000,33500000,8000000,405,25,972000,,single_source,https://www.kingshotguide.org/buildings/barracks,2026-10-30,,Whole tier = 5 upgrade steps added together. Truegold matches GTO in-game screenshots; Bread/Wood/Stone/Iron and time from kingshotguide.org. Assumed identical to Barracks and Range. Check one tier in game.

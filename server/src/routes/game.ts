@@ -159,6 +159,17 @@ gameRouter.patch('/versions/:id', curator, h(async (req, res) => {
   res.json({ ok: true });
 }));
 
+gameRouter.delete('/versions/:id', curator, h(async (req, res) => {
+  const id = intParam(req.params.id);
+  const v = await one<{ status: string; label: string }>('SELECT status, label FROM dataset_versions WHERE id = $1', [id]);
+  if (!v) throw notFound('Dataset version');
+  if (v.status === 'published') throw bad('The published version is used by the calculator and cannot be deleted. Publish another version first.');
+  const n = await one<{ n: number }>('SELECT count(*)::int AS n FROM building_levels WHERE dataset_version_id = $1', [id]);
+  await q('DELETE FROM dataset_versions WHERE id = $1', [id]);
+  await audit(req.user!.id, 'delete', 'dataset_version', id, { label: v.label, status: v.status, records: n?.n ?? 0 });
+  res.json({ ok: true });
+}));
+
 gameRouter.post('/versions/:id/publish', curator, h(async (req, res) => {
   const id = intParam(req.params.id);
   const v = await one<{ status: string }>('SELECT status FROM dataset_versions WHERE id = $1', [id]);

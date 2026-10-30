@@ -46,8 +46,8 @@ plansRouter.use(requireAuth);
 plansRouter.get('/', h(async (req, res) => {
   res.json({ plans: await q(
     `SELECT p.id, p.name, p.items, p.assumptions, p.dataset_version_id, p.shared_with_alliance, p.share_token IS NOT NULL AS has_link,
-            p.created_at, p.updated_at, (p.result->>'authoritative')::boolean AS authoritative, p.result->>'quality' AS quality, v.label AS dataset_label
-       FROM upgrade_plans p LEFT JOIN dataset_versions v ON v.id = p.dataset_version_id
+            p.created_at, p.updated_at, (p.result->>'authoritative')::boolean AS authoritative, c.display_name AS created_by_name, p.created_by, p.result->>'quality' AS quality, v.label AS dataset_label
+       FROM upgrade_plans p LEFT JOIN dataset_versions v ON v.id = p.dataset_version_id LEFT JOIN users c ON c.id = p.created_by
       WHERE p.owner_id = $1 ORDER BY p.updated_at DESC`, [req.user!.id]) });
 }));
 

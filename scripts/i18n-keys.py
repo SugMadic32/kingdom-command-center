@@ -27,7 +27,7 @@ indirect = ['Kingdom','My progress','Reference','Overview','Alliances','Announce
   'event','announcement','alliance','member','building level','dataset version','building','KVK season','KVK phase',
   'checklist item','integration','resource type',
   "King's appointments",'Booking open','Booking closed','Appointment manager',"Run King's appointment schedules and assign members",
-  'booked a slot','freed a slot','opened booking','closed booking','set to draft','appointment schedule','appointment position','applied','withdrew','appointed']
+  'booked a slot','freed a slot','opened booking','closed booking','set to draft','appointment schedule','appointment position','applied','withdrew','appointed','member planning','upgrade plan']
 keys.update(indirect)
 # Messages the server can send (shown through tErr)
 for d, _, fs in os.walk(os.path.join(root, 'server/src')):

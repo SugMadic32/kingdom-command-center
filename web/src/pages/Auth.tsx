@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Languages } from 'lucide-react';
 import { api } from '../lib/api';
@@ -65,6 +65,8 @@ export function Register() {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const [shareDefault, setShareDefault] = useState(false);
+  useEffect(() => { api<{ share_default: boolean }>('/auth/signup-info').then((r) => setShareDefault(r.share_default)).catch(() => {}); }, []);
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
@@ -89,6 +91,7 @@ export function Register() {
           <Input name="password" type="password" autoComplete="new-password" minLength={10} required />
         </Field>
         <p className="muted small">{t('Time zone detected: {tz}. You can change it later in Settings.', { tz })}</p>
+        {shareDefault && <p className="muted small">{t('The resources and building levels you enter are shared with your alliance R4/R5 and the kingdom admin, so they can help plan your upgrades. You can turn this off anytime in Settings.')}</p>}
         <Button variant="primary" busy={busy} type="submit">{t('Create account')}</Button>
       </form>
     </AuthFrame>

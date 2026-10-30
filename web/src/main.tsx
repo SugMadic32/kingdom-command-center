@@ -16,6 +16,7 @@ import { DataLibrary } from './pages/DataLibrary';
 import { AdminPage, AuditPage } from './pages/Admin';
 import { SettingsPage } from './pages/Settings';
 import { AppointmentsPage, AppointmentDetail } from './pages/Appointments';
+import { MemberPlanningPage, MemberPlanDetail } from './pages/MemberPlanning';
 import { t } from './lib/i18n';
 
 // Apply saved theme before first paint
@@ -60,6 +61,8 @@ function App() {
         <Route path="notifications" element={<NotificationsPage />} />
         <Route path="settings" element={<SettingsPage />} />
         <Route path="admin" element={<AdminPage />} />
+        <Route path="planning" element={<MemberPlanningPage />} />
+        <Route path="planning/:id" element={<MemberPlanDetail />} />
         <Route path="audit" element={<AuditPage />} />
         <Route path="*" element={<Empty title={t('Page not found')}>{t('Use the menu to find your way back.')}</Empty>} />
       </Route>

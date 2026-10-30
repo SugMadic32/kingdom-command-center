@@ -1,0 +1,5 @@
+# HTTPS front door. Caddy gets and renews a free Let's Encrypt certificate automatically.
+{$SITE_DOMAIN} {
+	encode gzip
+	reverse_proxy app:4000
+}

@@ -39,7 +39,7 @@ export function Dashboard() {
             </div>
           )}</Async>
           <Async state={profile}>{(d) => (
-            <p className="muted small">{d.profile.share_inventory ? t('Inventory is shared with your alliance leaders.') : t('Inventory is private.')} <Link to="/settings">{t('Change sharing')}</Link></p>
+            <p className="muted small">{d.profile.share_inventory ? t('Your resources are shared with your leaders.') : t('Inventory is private.')} <Link to="/settings">{t('Change sharing')}</Link></p>
           )}</Async>
         </Panel>
 

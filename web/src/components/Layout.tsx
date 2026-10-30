@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
-  Bell, BookOpen, Calculator, CalendarClock, CalendarDays, ClipboardList, Crown, Flag, History, LayoutDashboard,
+  Bell, BookOpen, Calculator, ClipboardCheck, CalendarClock, CalendarDays, ClipboardList, Crown, Flag, History, LayoutDashboard,
   Languages, LogOut, Megaphone, Menu, Moon, Package, Settings, Shield, Sun, Swords, X,
 } from 'lucide-react';
 import { api } from '../lib/api';
@@ -52,6 +52,7 @@ export function Layout() {
 
   const showAdmin = isAdmin || has('integration_manager');
   const showAudit = isAdmin || isLeader;
+  const showPlanning = isAdmin || isLeader || has('alliance_manager');
 
   async function logout() {
     await api('/auth/logout', { method: 'POST' });
@@ -76,9 +77,10 @@ export function Layout() {
               ))}
             </div>
           ))}
-          {(showAdmin || showAudit) && (
+          {(showAdmin || showAudit || showPlanning) && (
             <div className="nav-group">
               <p className="nav-group-label">{t('Leadership')}</p>
+              {showPlanning && <NavLink to="/planning" className="nav-link"><ClipboardCheck size={18} aria-hidden />{t('Member planning')}</NavLink>}
               {showAdmin && <NavLink to="/admin" className="nav-link"><Shield size={18} aria-hidden />{t('Admin console')}</NavLink>}
               {showAudit && <NavLink to="/audit" className="nav-link"><History size={18} aria-hidden />{t('Audit history')}</NavLink>}
             </div>

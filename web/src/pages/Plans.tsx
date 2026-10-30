@@ -114,7 +114,7 @@ export function ResultView({ r, showInventory = true }: { r: any; showInventory?
   );
 }
 
-function ItemsEditor({ items, setItems, buildings, myLevels }: { items: Item[]; setItems: (i: Item[]) => void; buildings: any[]; myLevels: Record<number, number> }) {
+export function ItemsEditor({ items, setItems, buildings, myLevels }: { items: Item[]; setItems: (i: Item[]) => void; buildings: any[]; myLevels: Record<number, number> }) {
   const update = (i: number, patch: Partial<Item>) => setItems(items.map((x, j) => (j === i ? { ...x, ...patch } : x)));
   return (
     <div className="stack">
@@ -238,6 +238,7 @@ export function CalculatorPage() {
 }
 
 export function PlansPage() {
+  const { user } = useSession();
   const state = useLoad<any>('/plans');
   const [compare, setCompare] = useState<number[]>([]);
   const toggle = (id: number) => setCompare(compare.includes(id) ? compare.filter((x) => x !== id) : [...compare, id].slice(-2));
@@ -252,7 +253,7 @@ export function PlansPage() {
             <tbody>{d.plans.map((p: any) => (
               <tr key={p.id}>
                 <td><input type="checkbox" checked={compare.includes(p.id)} onChange={() => toggle(p.id)} aria-label={t('Compare {name}', { name: p.name })} /></td>
-                <td><Link to={`/plans/${p.id}`}><b>{p.name}</b></Link></td>
+                <td><Link to={`/plans/${p.id}`}><b>{p.name}</b></Link>{p.created_by_name && p.created_by !== user?.id && <Tag tone="gold">{t('from {name}', { name: p.created_by_name })}</Tag>}</td>
                 <td><QualityTag result={{ quality: p.quality, authoritative: p.authoritative }} /></td>
                 <td className="muted">{p.dataset_label ?? '—'}</td>
                 <td>{p.shared_with_alliance ? t('Alliance leaders') : p.has_link ? t('Link') : t('Private')}</td>

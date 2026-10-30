@@ -28,7 +28,7 @@ export const actionName = (a: string) => (ACTIONS[a] ? t(ACTIONS[a]) : a.replace
 const RECORDS: Record<string, string> = {
   event: 'event', announcement: 'announcement', alliance: 'alliance', user: 'member', building_level: 'building level',
   dataset_version: 'dataset version', game_building: 'building', kvk_season: 'KVK season', kvk_phase: 'KVK phase',
-  kvk_checklist_item: 'checklist item', integration: 'integration', resource_type: 'resource type',
+  kvk_checklist_item: 'checklist item', integration: 'integration', resource_type: 'resource type', member_planning: 'member planning', upgrade_plan: 'upgrade plan',
   appointment_schedule: 'appointment schedule', appointment_position: 'appointment position',
 };
 const recordName = (r: string) => (RECORDS[r] ? t(RECORDS[r]) : r.replace(/_/g, ' '));
@@ -73,7 +73,16 @@ function Members() {
     if (r) setResetUrl(r.url);
   }
 
+  const ks = useLoad<any>('/admin/kingdom-settings');
   return (
+    <div className="stack">
+    <Panel title={t('Sharing default')}>
+      <Async state={ks}>{(k) => (
+        <label className="radio"><input type="checkbox" checked={k.share_default}
+          onChange={async (e) => { if (await run(() => api('/admin/kingdom-settings', { method: 'PUT', body: { share_default: e.target.checked } }), t('Saved'))) ks.reload(); }} />
+          {t('New members share their resources and building levels with leaders (they are told when they sign up and can turn it off)')}</label>
+      )}</Async>
+    </Panel>
     <Panel>
       {node}
       <div className="inline-form"><Input value={term} onChange={(e) => setTerm(e.target.value)} placeholder={t('Search name or email')} aria-label={t('Search members')} /></div>
@@ -111,6 +120,7 @@ function Members() {
         </Modal>
       )}
     </Panel>
+    </div>
   );
 }
 

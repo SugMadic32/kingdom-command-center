@@ -135,6 +135,7 @@ const plan = (await member.req('POST', '/plans', { name: 'TC push', items: [{ bu
 check('plan stores dataset version', plan.dataset_version_id === v2.id);
 check('another user cannot read plan', (await outsider.req('GET', `/plans/${plan.id}`)).status === 404);
 check('another user cannot delete plan', (await outsider.req('DELETE', `/plans/${plan.id}`)).status === 404);
+await member.req('PATCH', '/me/profile', { share_inventory: false, share_buildings: false });
 check('leader sees nothing before sharing', (await leader.req('GET', `/alliances/${gto.id}/shared`)).body.inventory.length === 0);
 await member.req('PATCH', '/me/profile', { share_inventory: true });
 await member.req('POST', `/plans/${plan.id}/sharing`, { alliance: true, link: true });
@@ -294,6 +295,34 @@ check('position with bookings cannot be deleted', (await admin.req('DELETE', `/a
 const pC = (await admin.req('POST', '/appointments/positions', { name: 'Unused' })).body.position;
 check('unused position deleted', (await admin.req('DELETE', `/appointments/positions/${pC.id}`)).status === 200);
 check('season deleted', (await admin.req('DELETE', `/kingdom/kvk/seasons/${season.id}`)).status === 200);
+
+console.log('Member planning & dataset delete');
+check('cannot delete published dataset', (await admin.req('DELETE', `/game/versions/${v2.id}`)).status === 400);
+check('archived dataset deleted', (await admin.req('DELETE', `/game/versions/${v1.id}`)).status === 200);
+check('member cannot open member planning', (await member.req('GET', '/planning/members')).status === 403);
+const plan1 = (await admin.req('GET', '/planning/members')).body;
+check('admin sees all members', plan1.members.length >= 3 && plan1.kingdom_wide === true);
+const mRow = plan1.members.find((x: any) => x.id === ids.member);
+check('shared inventory visible to admin', mRow.inventory && mRow.inventory.wood === 250);
+await member.req('PATCH', '/me/profile', { share_inventory: false, share_buildings: false });
+const plan2 = (await admin.req('GET', '/planning/members')).body.members.find((x: any) => x.id === ids.member);
+check('not-shared member shows no numbers', plan2.inventory === null && plan2.town_center === null);
+check('cannot plan for non-sharing member', (await admin.req('POST', `/planning/members/${ids.member}/calculate`, { items: [{ building_id: tc.id, from: 1, to: 3 }] })).status === 403);
+await member.req('PATCH', '/me/profile', { share_inventory: true, share_buildings: true });
+const calcFor = (await admin.req('POST', `/planning/members/${ids.member}/calculate`, { items: [{ building_id: tc.id, from: 1, to: 3 }] })).body.result;
+check('calculation uses member inventory', calcFor && calcFor.shortage.wood === 50);
+const made = await admin.req('POST', `/planning/members/${ids.member}/plans`, { name: 'TC push from King', items: [{ building_id: tc.id, from: 1, to: 3 }], note: 'Do this before KVK' });
+check('plan made for member', made.status === 201);
+const mine2 = (await member.req('GET', '/plans')).body.plans.find((p: any) => p.id === made.body.plan.id);
+check('member sees plan in own list with maker', mine2 && mine2.created_by_name === 'mamamiya');
+check('member notified of plan', (await member.req('GET', '/me/notifications')).body.notifications.some((n: any) => n.kind === 'plan_from_leader'));
+check('R5 limited to own alliance', (await leader.req('GET', '/planning/members')).body.members.every((x: any) => x.alliance_id === gto.id));
+await admin.req('PUT', '/admin/kingdom-settings', { share_default: false });
+const nc = new Client(); await nc.req('POST', '/auth/register', { email: 'new1@example.com', password: 'correct-horse-1', display_name: 'Newbie' });
+check('share default off respected for new members', (await nc.req('GET', '/me/profile')).body.profile.share_inventory === false);
+await admin.req('PUT', '/admin/kingdom-settings', { share_default: true });
+const nc2 = new Client(); await nc2.req('POST', '/auth/register', { email: 'new2@example.com', password: 'correct-horse-1', display_name: 'Newbie2' });
+check('share default on for new members', (await nc2.req('GET', '/me/profile')).body.profile.share_inventory === true);
 
 console.log('Account deletion');
 const del = new Client();

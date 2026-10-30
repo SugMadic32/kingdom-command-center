@@ -58,6 +58,12 @@ const templates: Record<string, Tpl> = {
     fr: { title: 'Votre créneau {position} a été retiré', body: '{schedule} · {time} UTC' },
     id: { title: 'Slot {position} Anda dihapus', body: '{schedule} · {time} UTC' },
   },
+  plan_from_leader: {
+    en: { title: '{name} made an upgrade plan for you: {plan}', body: '{note}' },
+    ko: { title: '{name} 님이 업그레이드 계획을 만들었습니다: {plan}', body: '{note}' },
+    fr: { title: "{name} a créé un plan d'amélioration pour vous : {plan}", body: '{note}' },
+    id: { title: '{name} membuat rencana peningkatan untuk Anda: {plan}', body: '{note}' },
+  },
   reminder: {
     en: { title: 'Starting in {mins} min: {title}' },
     ko: { title: '{mins}분 후 시작: {title}' },

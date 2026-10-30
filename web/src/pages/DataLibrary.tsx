@@ -71,6 +71,10 @@ export function DataLibrary() {
               <Button icon={<Download size={16} />} onClick={() => download(`/game/versions/${vid}/export.csv`)}>{t('Export CSV')}</Button>
               {editable && <Button icon={<Upload size={16} />} onClick={() => setModal('import')}>{t('Import CSV')}</Button>}
               {editable && <Button variant="primary" busy={busy} onClick={publish}>{t('Publish')}</Button>}
+              {curator && version.status !== 'published' && <Button variant="danger" icon={<Trash2 size={16} />} onClick={async () => {
+                if (!(await confirm(t('Delete this dataset version?'), t('{label} and its {n} records are deleted. The published version is not affected.', { label: version.label, n: version.record_count }), t('Delete')))) return;
+                if (await run(() => api(`/game/versions/${vid}`, { method: 'DELETE' }), t('Dataset version deleted'))) { setVid(null); reloadAll(); }
+              }}>{t('Delete')}</Button>}
             </div>}
           </div>
           {version?.notes && <p className="muted">{version.notes}</p>}

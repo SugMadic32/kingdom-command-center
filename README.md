@@ -27,6 +27,20 @@ A kingdom-wide planning site for KingShot players: personal resources and upgrad
 - Managed hosting also works: build `web/`, run `server/` with `npm start`. The server serves `web/dist` automatically.
 - Run `scripts/backup.sh` daily from cron and copy the backups off the server. `scripts/restore.sh` restores one.
 
+## Deploy on Oracle Cloud Always Free (or any Linux server)
+
+Uses `docker-compose.prod.yml`, which adds Caddy for automatic HTTPS. Step-by-step:
+
+1. Create an Ubuntu VM (Ampere A1, within the free limits), open TCP 80 and 443 in the subnet's Security List, and on the VM:
+   `sudo iptables -I INPUT 6 -p tcp -m multiport --dports 80,443 -j ACCEPT && sudo netfilter-persistent save`
+2. Install Docker: `curl -fsSL https://get.docker.com | sudo sh && sudo usermod -aG docker $USER` (log out and back in).
+3. Point a domain at the VM's public IP (free: duckdns.org).
+4. `git clone` the repository, `cp .env.example .env`, set `SITE_DOMAIN`, `APP_URL=https://<domain>`, `POSTGRES_PASSWORD`.
+5. `docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build`
+6. Updates: `./deploy/update.sh`. Backups: add `deploy/backup.sh` to crontab and copy `backups/` off the server.
+
+Oracle may reclaim Always Free VMs it considers idle. Keep backups off the server.
+
 ## First-time setup checklist (admin)
 
 1. **Admin console → Members & roles:** make trusted players *Officer*, then give each one only the permissions they need.
@@ -74,6 +88,14 @@ Everything the site shows is entered by your own officers. Nothing is pre-filled
 - **King's appointments:** edit positions (name, buff, on/off, delete if unused) and schedules (name, times, slot length, limit, notes).
 - **Game data:** edit buildings (name, max level, notes), rename dataset versions, edit level records in a draft.
 - Every change is saved in **Audit history**.
+
+## Member planning
+
+- **Who:** the kingdom admin and alliance managers see every member. R4/R5 see their own alliance.
+- **What:** each member's shared resources, Town Center level and last update. Members who don't share show "Not shared".
+- **Plan for a member:** click **Plan**, choose buildings and levels, then **Calculate** using their resources, then **Send plan**. It appears in the member's Saved plans, tagged with who made it, and they get a notification.
+- **Sharing default:** Admin console → Members & roles → *Sharing default*. When on, new members share with leaders (the sign-up page tells them) and can turn it off in Settings. Existing members turn it on themselves.
+- **Delete old datasets:** Game data library → pick a draft or archived version → Delete. The published one can't be deleted.
 
 ## King's appointments
 
@@ -134,7 +156,7 @@ createdb kingdom_test
 TEST_DATABASE_URL=postgres://USER:PASS@localhost:5432/kingdom_test npm test
 ```
 
-- 130 end-to-end checks cover permissions, privacy, the calculator, Truegold tiers, events, King's appointments, reminders, languages, audit and account deletion.
+- 144 end-to-end checks cover permissions, privacy, the calculator, Truegold tiers, events, King's appointments, reminders, languages, audit and account deletion.
 - **Warning:** the test wipes the test database. Never point it at production.
 
 ## Known limits (honest list)

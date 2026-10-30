@@ -18,6 +18,7 @@ import { eventsRouter } from './routes/events.js';
 import { kingdomRouter } from './routes/kingdom.js';
 import { adminRouter } from './routes/admin.js';
 import { appointmentsRouter } from './routes/appointments.js';
+import { planningRouter } from './routes/planning.js';
 import { startJobs } from './jobs/reminders.js';
 import { startDiscordBot } from './discord/bot.js';
 
@@ -54,6 +55,7 @@ export function createApp() {
   api.use('/kingdom', kingdomRouter);
   api.use('/admin', adminRouter);
   api.use('/appointments', appointmentsRouter);
+  api.use('/planning', planningRouter);
   api.use((_req, res) => { res.status(404).json({ error: 'Unknown API route.' }); });
   app.use('/api', api);
 
