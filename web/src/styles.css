@@ -382,3 +382,11 @@ a.list-row:hover { text-decoration: none; color: var(--gold); }
 }
 .slot-main .cell-actions { justify-content: flex-start; }
 .slot-main .cell-actions > :last-child { margin-left: auto; }
+
+/* Number columns: heading lines up with the numbers */
+.table th.num { text-align: right; }
+.speed-row { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 8px; align-items: center; }
+.speed-row .input { text-align: right; }
+.speed-head { font-size: 0.78rem; color: var(--muted); text-align: right; }
+@media (max-width: 520px) { .speed-row { grid-template-columns: repeat(3, minmax(0, 1fr)); } .speed-row label { grid-column: 1 / -1; } }
+.sub-head { font-family: var(--display); font-size: 1.1rem; margin: 10px 0 0; padding-top: 12px; border-top: 1px solid var(--line); }

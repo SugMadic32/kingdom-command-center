@@ -91,10 +91,11 @@ async function handle(i: ChatInputCommandInteraction) {
     case 'resources': {
       const u = await one<{ id: number }>('SELECT id FROM users WHERE discord_user_id = $1 AND deleted_at IS NULL', [i.user.id]);
       if (!u) return i.reply({ content: 'Link your account first: Settings › Discord on the website, then /link.', flags: MessageFlags.Ephemeral });
-      const inv = await q(`SELECT r.name, COALESCE(mi.amount,0) AS amount FROM resource_types r
+      const inv = await q(`SELECT r.name, r.kind, COALESCE(mi.amount,0) AS amount FROM resource_types r
                             LEFT JOIN member_inventory mi ON mi.resource_key = r.key AND mi.user_id = $1
                            WHERE NOT r.deferred ORDER BY r.sort`, [u.id]);
-      return i.reply({ content: inv.map((r) => `${r.name}: ${Number(r.amount).toLocaleString('en-US')}`).join('\n') || 'No inventory saved.',
+      const dur = (m: number) => `${Math.floor(m / 1440)}d ${Math.floor((m % 1440) / 60)}h ${m % 60}m`;
+      return i.reply({ content: inv.map((r) => `${r.name}: ${r.kind === 'speedup' ? dur(Number(r.amount)) : Number(r.amount).toLocaleString('en-US')}`).join('\n') || 'No inventory saved.',
         flags: MessageFlags.Ephemeral });
     }
     case 'link': {

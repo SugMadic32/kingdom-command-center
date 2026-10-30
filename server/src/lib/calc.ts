@@ -40,7 +40,7 @@ export async function calculate(opts: {
   assumptions?: Assumptions;
 }) {
   const resources = await q<{ key: string; name: string; deferred: boolean; applies_from_level: number }>(
-    'SELECT key, name, deferred, applies_from_level FROM resource_types ORDER BY sort',
+    `SELECT key, name, deferred, applies_from_level FROM resource_types WHERE kind = 'resource' ORDER BY sort`,
   );
   const appliesFrom = Object.fromEntries(resources.map((r) => [r.key, r.applies_from_level]));
   const active = resources.filter((r) => !r.deferred).map((r) => r.key);

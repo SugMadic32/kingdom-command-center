@@ -64,7 +64,7 @@ gameRouter.get('/versions/:id/coverage', h(async (req, res) => {
 
 gameRouter.get('/versions/:id/export.csv', h(async (req, res) => {
   const vid = intParam(req.params.id);
-  const resources = await q<{ key: string }>('SELECT key FROM resource_types ORDER BY sort');
+  const resources = await q<{ key: string }>(`SELECT key FROM resource_types WHERE kind = 'resource' ORDER BY sort`);
   const rows = await q<any>(
     `SELECT b.key AS building, l.* FROM building_levels l JOIN game_buildings b ON b.id = l.building_id
       WHERE l.dataset_version_id = $1 ORDER BY b.key, l.level`, [vid]);
@@ -206,7 +206,7 @@ async function validateLevel(l: z.infer<typeof levelSchema>) {
   const b = await one<{ max_level: number }>('SELECT max_level FROM game_buildings WHERE id = $1', [l.building_id]);
   if (!b) throw bad('Building does not exist.');
   if (l.level > b.max_level) throw bad(`Level ${levelLabel(l.level)} is above the building's maximum (${levelLabel(b.max_level)}).`);
-  const keys = new Set((await q<{ key: string }>('SELECT key FROM resource_types')).map((r) => r.key));
+  const keys = new Set((await q<{ key: string }>(`SELECT key FROM resource_types WHERE kind = 'resource'`)).map((r) => r.key));
   for (const k of Object.keys(l.costs)) if (!keys.has(k)) throw bad(`Unknown resource "${k}".`);
   if (l.status !== 'missing' && !l.source_url && l.status !== 'in_game_confirmed') {
     throw bad('Add a source URL, or mark the record as in-game confirmed.');
@@ -260,7 +260,7 @@ gameRouter.post('/versions/:id/import', curator, h(async (req, res) => {
   const header = rows[0].map((h) => h.trim().toLowerCase());
   const col = (name: string) => header.indexOf(name);
   for (const req of ['building', 'level', 'status']) if (col(req) < 0) throw bad(`Missing column "${req}".`);
-  const resourceKeys = (await q<{ key: string }>('SELECT key FROM resource_types')).map((r) => r.key).filter((k) => col(k) >= 0);
+  const resourceKeys = (await q<{ key: string }>(`SELECT key FROM resource_types WHERE kind = 'resource'`)).map((r) => r.key).filter((k) => col(k) >= 0);
   let buildings = new Map((await q<{ id: number; key: string }>('SELECT id, key FROM game_buildings')).map((b) => [b.key, b.id]));
 
   // Optional: create buildings the file mentions and raise max levels so every row fits (e.g. TG tiers).

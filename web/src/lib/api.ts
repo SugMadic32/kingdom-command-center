@@ -35,6 +35,9 @@ export function fmtDuration(seconds: number | null | undefined) {
   return [d && t('{n}d', { n: d }), h && t('{n}h', { n: h }), (m || (!d && !h)) && t('{n}m', { n: m })].filter(Boolean).join(' ');
 }
 
+/** Speedup amounts are stored in minutes. */
+export const fmtMinutes = (m: number | null | undefined) => (m == null ? '—' : fmtDuration(Number(m) * 60));
+
 /** Format a canonical UTC time in the member's own time zone. */
 export function fmtTime(iso: string | null | undefined, tz: string, withZone = true) {
   if (!iso) return t('Time not set');

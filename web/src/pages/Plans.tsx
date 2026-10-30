@@ -202,7 +202,7 @@ export function CalculatorPage() {
                 <legend>{t('Resources to compare against')}</legend>
                 <label className="radio"><input type="radio" checked={useSaved} onChange={() => setUseSaved(true)} /> {t('My saved inventory')}</label>
                 <label className="radio"><input type="radio" checked={!useSaved} onChange={() => setUseSaved(false)} /> {t('Try other amounts (not saved)')}</label>
-                {!useSaved && inv.data && inv.data.inventory.filter((r: any) => !r.deferred).map((r: any) => (
+                {!useSaved && inv.data && inv.data.inventory.filter((r: any) => !r.deferred && r.kind !== 'speedup').map((r: any) => (
                   <div key={r.key} className="inv-row"><label htmlFor={`c-${r.key}`}>{resName(r.key, r.name)}</label>
                     <Input id={`c-${r.key}`} inputMode="numeric" value={custom[r.key] ?? ''} placeholder={String(r.amount)} onChange={(e) => setCustom({ ...custom, [r.key]: e.target.value })} /></div>
                 ))}
@@ -214,6 +214,10 @@ export function CalculatorPage() {
                   <Field label={t('Construction speed bonus %')}><Input type="number" min={0} value={bonus} onChange={(e) => setBonus(e.target.value)} /></Field>
                   <Field label={t('Speedups (minutes)')}><Input type="number" min={0} value={speedups} onChange={(e) => setSpeedups(e.target.value)} /></Field>
                 </div>
+                {inv.data && (() => {
+                  const mins = inv.data.inventory.filter((r: any) => r.key === 'speedup_construction' || r.key === 'speedup_general').reduce((n: number, r: any) => n + Number(r.amount), 0);
+                  return mins > 0 && <Button variant="quiet" onClick={() => setSpeedups(String(mins))}>{t('Use my speedups ({time})', { time: fmtDuration(mins * 60) })}</Button>;
+                })()}
                 <p className="muted small">{t('Leave empty to see base build time only.')}</p>
               </fieldset>
               <Button variant="primary" busy={busy} onClick={calc}>{t('Calculate')}</Button>

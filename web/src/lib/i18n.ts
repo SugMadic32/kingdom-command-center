@@ -49,6 +49,8 @@ export const levelLabel = (n: number | null | undefined) => (n == null ? '—' :
 
 const RES: Record<string, string> = {
   bread: 'Bread', wood: 'Wood', stone: 'Stone', iron: 'Iron', truegold: 'Truegold', tempered_truegold: 'Tempered Truegold',
+  speedup_general: 'General speedups', speedup_construction: 'Construction speedups', speedup_research: 'Research speedups',
+  speedup_training: 'Training speedups', speedup_healing: 'Healing speedups',
 };
 /** Resource display name: known keys are translated, others use the curator's name. */
 export const resName = (key: string, fallback?: string) => (RES[key] ? t(RES[key]) : fallback ?? key.replace(/_/g, ' '));

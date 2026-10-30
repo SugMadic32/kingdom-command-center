@@ -324,6 +324,16 @@ await admin.req('PUT', '/admin/kingdom-settings', { share_default: true });
 const nc2 = new Client(); await nc2.req('POST', '/auth/register', { email: 'new2@example.com', password: 'correct-horse-1', display_name: 'Newbie2' });
 check('share default on for new members', (await nc2.req('GET', '/me/profile')).body.profile.share_inventory === true);
 
+console.log('Speedups');
+const invRows = (await member.req('GET', '/me/inventory')).body.inventory;
+check('5 speedup types in inventory', invRows.filter((r: any) => r.kind === 'speedup').length === 5);
+check('speedups saved in minutes', (await member.req('PUT', '/me/inventory', { speedup_construction: 1440 * 3 + 90 })).status === 200 &&
+  (await member.req('GET', '/me/inventory')).body.inventory.find((r: any) => r.key === 'speedup_construction').amount === 4410);
+const rS = (await member.req('POST', '/plans/calculate', { items: [{ building_id: tc.id, from: 30, to: 32 }] })).body.result;
+check('speedups never appear in building costs', !Object.keys(rS.totals).some((k) => k.startsWith('speedup')));
+check('leaders see member speedups', (await admin.req('GET', '/planning/members')).body.members.find((x: any) => x.id === ids.member).inventory.speedup_construction === 4410);
+check('speedup keys rejected as building costs', (await admin.req('PUT', `/game/versions/${(await admin.req('POST', '/game/versions', { label: 'sp' })).body.version.id}/levels`, { building_id: tc.id, level: 2, costs: { speedup_general: 5 }, status: 'in_game_confirmed' })).status === 400);
+
 console.log('Account deletion');
 const del = new Client();
 await del.req('POST', '/auth/login', { email: 'other@example.com', password: 'correct-horse-1' });

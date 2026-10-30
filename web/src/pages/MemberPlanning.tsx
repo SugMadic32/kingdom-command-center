@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ClipboardList } from 'lucide-react';
-import { api, fmtDate, fmtNum, fmtShort } from '../lib/api';
+import { api, fmtDate, fmtMinutes, fmtNum, fmtShort } from '../lib/api';
 import { useLoad } from '../lib/session';
 import { levelLabel, resName, t } from '../lib/i18n';
 import { Async, Button, Empty, Field, Input, Note, PageHeader, Panel, Tag, useAction } from '../components/ui';
 import { ItemsEditor, QualityTag, ResultView } from './Plans';
 
 const RES = ['bread', 'wood', 'stone', 'iron', 'truegold', 'tempered_truegold'];
+const SPEED = ['speedup_general', 'speedup_construction', 'speedup_research', 'speedup_training', 'speedup_healing'];
+const buildSpeed = (inv: any) => (inv ? Number(inv.speedup_construction ?? 0) + Number(inv.speedup_general ?? 0) : null);
 
 export function MemberPlanningPage() {
   const [alliance, setAlliance] = useState('');
@@ -38,12 +40,13 @@ export function MemberPlanningPage() {
             {list.length ? (
               <div className="table-wrap"><table className="table">
                 <thead><tr><th>{t('Player')}</th><th className="num">{t('Town Center')}</th>
-                  {RES.map((k) => <th key={k} className="num">{resName(k)}</th>)}<th>{t('Updated')}</th><th /></tr></thead>
+                  {RES.map((k) => <th key={k} className="num">{resName(k)}</th>)}<th className="num">{t('Build speedups')}</th><th>{t('Updated')}</th><th /></tr></thead>
                 <tbody>{list.map((m: any) => (
                   <tr key={m.id}>
                     <td><b>{m.ingame_name || m.display_name}</b>{m.alliance_tag && <small className="muted block">[{m.alliance_tag}] {m.rank}</small>}</td>
                     <td className="num">{m.town_center == null ? '—' : levelLabel(m.town_center)}</td>
                     {RES.map((k) => <td key={k} className="num" title={m.inventory ? fmtNum(m.inventory[k] ?? 0) : undefined}>{m.inventory ? fmtShort(m.inventory[k] ?? 0) : ''}</td>)}
+                    <td className="num" title={m.inventory ? SPEED.map((k) => `${resName(k)}: ${fmtMinutes(m.inventory[k] ?? 0)}`).join('\n') : undefined}>{m.inventory ? fmtMinutes(buildSpeed(m.inventory)) : ''}</td>
                     <td className="small">{m.inventory ? (m.inventory_updated ? fmtDate(m.inventory_updated) : t('Never')) : <Tag tone="muted">{t('Not shared')}</Tag>}</td>
                     <td>{(m.share_inventory || m.share_buildings) && <Link className="btn btn-quiet" to={`/planning/${m.id}`}><ClipboardList size={15} aria-hidden /> {t('Plan')}</Link>}</td>
                   </tr>
@@ -103,6 +106,9 @@ export function MemberPlanDetail() {
                     <div key={k} className="res"><span className="muted">{resName(k)}</span><b title={fmtNum(d.inventory[k] ?? 0)}>{fmtShort(d.inventory[k] ?? 0)}</b></div>
                   ))}</div>
                 ) : <p className="muted">{t('Not shared')}</p>}
+                {d.inventory && <ul className="list small">{SPEED.map((k) => (
+                  <li key={k} className="list-row"><span className="muted">{resName(k)}</span><b>{fmtMinutes(d.inventory[k] ?? 0)}</b></li>
+                ))}</ul>}
               </Panel>
               <Panel title={t('Their building levels')}>
                 {d.buildings ? (d.buildings.length ? (

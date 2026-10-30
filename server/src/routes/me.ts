@@ -46,7 +46,7 @@ meRouter.patch('/profile', h(async (req, res) => {
 // ---------- Inventory ----------
 meRouter.get('/inventory', h(async (req, res) => {
   const rows = await q(
-    `SELECT r.key, r.name, r.deferred, r.verified, COALESCE(mi.amount, 0) AS amount, mi.updated_at
+    `SELECT r.key, r.name, r.kind, r.deferred, r.verified, COALESCE(mi.amount, 0) AS amount, mi.updated_at
        FROM resource_types r LEFT JOIN member_inventory mi ON mi.resource_key = r.key AND mi.user_id = $1
       ORDER BY r.sort`, [req.user!.id]);
   res.json({ inventory: rows });
@@ -183,7 +183,7 @@ meRouter.get('/export.json', h(async (req, res) => {
 
 meRouter.get('/inventory.csv', h(async (req, res) => {
   const rows = await q<{ name: string; amount: number }>(
-    `SELECT r.name, COALESCE(mi.amount,0) AS amount FROM resource_types r
+    `SELECT r.name || CASE WHEN r.kind = 'speedup' THEN ' (minutes)' ELSE '' END AS name, COALESCE(mi.amount,0) AS amount FROM resource_types r
        LEFT JOIN member_inventory mi ON mi.resource_key = r.key AND mi.user_id = $1 ORDER BY r.sort`, [req.user!.id]);
   res.setHeader('Content-Type', 'text/csv; charset=utf-8');
   res.setHeader('Content-Disposition', 'attachment; filename="inventory.csv"');
