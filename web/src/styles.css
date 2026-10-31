@@ -397,3 +397,4 @@ a.list-row:hover { text-decoration: none; color: var(--gold); }
 .inv-row { align-items: start; }
 .inv-row > label { padding-top: 8px; }
 .modal-body > .note + form { margin-top: 12px; }
+.amount-hint.warn { color: var(--gold); }

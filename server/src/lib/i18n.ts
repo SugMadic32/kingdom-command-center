@@ -85,6 +85,12 @@ const templates: Record<string, Tpl> = {
   },
   what_resources: { en: { title: 'resources and speedups' }, ko: { title: '자원과 가속' }, fr: { title: 'ressources et accélérateurs' }, id: { title: 'sumber daya dan percepatan' } },
   what_buildings: { en: { title: 'building levels' }, ko: { title: '건물 레벨' }, fr: { title: 'niveaux de bâtiments' }, id: { title: 'level bangunan' } },
+  sharing_turned_on: {
+    en: { title: '{name} turned on sharing for you', body: 'Your alliance R4/R5 and the kingdom admin can now see your resources and building levels to help plan upgrades. You can turn this off in Settings › Privacy.' },
+    ko: { title: '{name} 님이 공유를 켰습니다', body: '이제 연맹 R4/R5와 왕국 관리자가 업그레이드 계획을 돕기 위해 내 자원과 건물 레벨을 볼 수 있습니다. 설정 › 개인정보에서 끌 수 있습니다.' },
+    fr: { title: '{name} a activé le partage pour vous', body: "Les R4/R5 de votre alliance et l'admin du royaume voient désormais vos ressources et niveaux pour vous aider à planifier. Vous pouvez désactiver cela dans Paramètres › Confidentialité." },
+    id: { title: '{name} menyalakan berbagi untuk Anda', body: 'R4/R5 aliansi dan admin kerajaan kini bisa melihat sumber daya dan level bangunan Anda untuk membantu merencanakan. Anda bisa mematikannya di Pengaturan › Privasi.' },
+  },
   reminder: {
     en: { title: 'Starting in {mins} min: {title}' },
     ko: { title: '{mins}분 후 시작: {title}' },

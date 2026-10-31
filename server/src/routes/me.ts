@@ -44,6 +44,9 @@ meRouter.patch('/profile', h(async (req, res) => {
   const sets = keys.map((k, i) => `${k} = $${i + 2}`).join(', ');
   await q(`UPDATE users SET ${sets} WHERE id = $1`, [req.user!.id, ...keys.map((k) => (b as any)[k])]);
   if (b.notify_email !== undefined) await q('UPDATE users SET notify_email_user_choice = $2 WHERE id = $1', [req.user!.id, b.notify_email]);
+  if (b.share_inventory !== undefined || b.share_buildings !== undefined) {
+    await q('UPDATE users SET share_user_choice = (share_inventory OR share_buildings) WHERE id = $1', [req.user!.id]);
+  }
   res.json({ ok: true });
 }));
 

@@ -364,6 +364,17 @@ check('email default setting saves', (await admin.req('PUT', '/admin/kingdom-set
   (await admin.req('GET', '/admin/kingdom-settings')).body.email_default === false && (await admin.req('GET', '/admin/kingdom-settings')).body.share_default === true);
 await admin.req('PUT', '/admin/kingdom-settings', { email_default: true });
 
+console.log('Admin sharing control');
+await pool.query(`UPDATE users SET share_inventory = FALSE, share_buildings = FALSE, share_user_choice = NULL WHERE id = $1`, [ids.leader]);
+await member.req('PATCH', '/me/profile', { share_inventory: false, share_buildings: false });
+check('R5 cannot turn on sharing for everyone', (await leader.req('POST', '/planning/sharing/all')).status === 403);
+const sh = (await admin.req('POST', '/planning/sharing/all')).body;
+check('sharing turned on for members who never chose', sh.changed >= 1 && (await leader.req('GET', '/me/profile')).body.profile.share_inventory === true);
+check('member who chose off is skipped', sh.skipped >= 1 && (await member.req('GET', '/me/profile')).body.profile.share_inventory === false);
+check('member notified that sharing was turned on', (await leader.req('GET', '/me/notifications')).body.notifications.some((n: any) => n.kind === 'sharing_turned_on'));
+check('admin cannot override a member who chose off', (await admin.req('POST', `/planning/members/${ids.member}/sharing`)).status === 400);
+await member.req('PATCH', '/me/profile', { share_inventory: true, share_buildings: true });
+
 console.log('Account deletion');
 const del = new Client();
 await del.req('POST', '/auth/login', { email: 'other@example.com', password: 'correct-horse-1' });

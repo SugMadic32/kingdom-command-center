@@ -28,7 +28,7 @@ planningRouter.get('/members', h(async (req, res) => {
   const allianceFilter = req.query.alliance_id ? intParam(String(req.query.alliance_id)) : null;
   const scopeAlliance = kingdomWide(u) ? allianceFilter : u.alliance_id;
   const members = await q<any>(
-    `SELECT u.id, u.display_name, u.ingame_name, u.share_inventory, u.share_buildings, a.id AS alliance_id, a.tag AS alliance_tag, am.rank,
+    `SELECT u.id, u.display_name, u.ingame_name, u.share_inventory, u.share_buildings, u.share_user_choice, a.id AS alliance_id, a.tag AS alliance_tag, am.rank,
             (SELECT max(updated_at) FROM member_inventory mi WHERE mi.user_id = u.id) AS inventory_updated
        FROM users u LEFT JOIN alliance_members am ON am.user_id = u.id LEFT JOIN alliances a ON a.id = am.alliance_id
       WHERE u.deleted_at IS NULL AND ($1::int IS NULL OR am.alliance_id = $1)
@@ -138,5 +138,38 @@ planningRouter.put('/members/:id/buildings', h(async (req, res) => {
   await saveBuildings(m.id, b, u.id);
   await audit(u.id, 'update', 'member_buildings', m.id, { count: b.length }, m.alliance_id);
   await notifyUsers([m.id], { kind: 'data_updated_by_leader', tkey: 'buildings_updated_by_leader', params: { name: u.display_name }, link: '/me/resources' });
+  res.json({ ok: true });
+}));
+
+/** Admin or alliance manager turns sharing on for members who never chose. A member's own "off" is always respected. */
+async function turnOnSharing(u: SessionUser, where: string, params: unknown[]) {
+  const rows = await q<{ id: number }>(
+    `UPDATE users SET share_inventory = TRUE, share_buildings = TRUE
+      WHERE deleted_at IS NULL AND share_user_choice IS DISTINCT FROM FALSE AND NOT (share_inventory AND share_buildings) AND ${where}
+      RETURNING id`, params);
+  if (rows.length) {
+    await notifyUsers(rows.map((r) => r.id), { kind: 'sharing_turned_on', tkey: 'sharing_turned_on', params: { name: u.display_name }, link: '/settings' });
+  }
+  return rows.length;
+}
+
+planningRouter.post('/sharing/all', h(async (req, res) => {
+  const u = req.user!;
+  if (!kingdomWide(u)) throw forbidden('Only the kingdom admin and alliance managers can do this.');
+  const changed = await turnOnSharing(u, 'TRUE', []);
+  const skipped = (await one<{ n: number }>(`SELECT count(*)::int AS n FROM users WHERE deleted_at IS NULL AND share_user_choice = FALSE`))?.n ?? 0;
+  await audit(u.id, 'sharing_on_all', 'member_planning', null, { changed, skipped });
+  res.json({ changed, skipped });
+}));
+
+planningRouter.post('/members/:id/sharing', h(async (req, res) => {
+  const u = req.user!;
+  if (!kingdomWide(u)) throw forbidden('Only the kingdom admin and alliance managers can do this.');
+  const id = intParam(req.params.id);
+  const m = await one<{ share_user_choice: boolean | null }>('SELECT share_user_choice FROM users WHERE id = $1 AND deleted_at IS NULL', [id]);
+  if (!m) throw notFound('Member');
+  if (m.share_user_choice === false) throw bad('This member turned sharing off themselves. Only they can turn it back on.');
+  await turnOnSharing(u, 'id = $1', [id]);
+  await audit(u.id, 'sharing_on', 'member_planning', id);
   res.json({ ok: true });
 }));

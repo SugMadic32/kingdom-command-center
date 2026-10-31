@@ -94,6 +94,7 @@ Everything the site shows is entered by your own officers. Nothing is pre-filled
 - **Who:** the kingdom admin and alliance managers see every member. R4/R5 see their own alliance.
 - **What:** each member's shared resources, Town Center level and last update. Members who don't share show "Not shared".
 - **Plan for a member:** click **Plan**, choose buildings and levels, then **Calculate** using their resources, then **Send plan**. It appears in the member's Saved plans, tagged with who made it, and they get a notification.
+- **Turn on sharing for everyone:** Member planning → button in the notice (admin and alliance managers). Members who never chose get sharing on and a notification explaining how to turn it off. Members who turned it off themselves are skipped. There is also a per-member *Turn on sharing* button.
 - **Sharing default:** Admin console → Members & roles → *Sharing default*. When on, new members share with leaders (the sign-up page tells them) and can turn it off in Settings. Existing members turn it on themselves.
 - **Delete old datasets:** Game data library → pick a draft or archived version → Delete. The published one can't be deleted.
 
@@ -176,7 +177,7 @@ createdb kingdom_test
 TEST_DATABASE_URL=postgres://USER:PASS@localhost:5432/kingdom_test npm test
 ```
 
-- 168 end-to-end checks cover permissions, privacy, the calculator, Truegold tiers, events, King's appointments, reminders, languages, audit and account deletion.
+- 173 end-to-end checks cover permissions, privacy, the calculator, Truegold tiers, events, King's appointments, reminders, languages, audit and account deletion.
 - **Warning:** the test wipes the test database. Never point it at production.
 
 ## Known limits (honest list)

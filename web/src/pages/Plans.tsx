@@ -210,7 +210,7 @@ export function CalculatorPage() {
                 <label className="radio"><input type="radio" checked={!useSaved} onChange={() => setUseSaved(false)} /> {t('Try other amounts (not saved)')}</label>
                 {!useSaved && inv.data && inv.data.inventory.filter((r: any) => !r.deferred && r.kind !== 'speedup').map((r: any) => (
                   <div key={r.key} className="inv-row"><label htmlFor={`c-${r.key}`}>{resName(r.key, r.name)}</label>
-                    <AmountInput id={`c-${r.key}`} value={custom[r.key] ?? ''} placeholder={fmtShort(r.amount)} label={resName(r.key, r.name)} onChange={(v) => setCustom({ ...custom, [r.key]: v })} /></div>
+                    <AmountInput id={`c-${r.key}`} value={custom[r.key] ?? ''} placeholder={fmtShort(r.amount)} label={resName(r.key, r.name)} warnSmall={['bread', 'wood', 'stone', 'iron'].includes(r.key)} onChange={(v) => setCustom({ ...custom, [r.key]: v })} /></div>
                 ))}
               </fieldset>
               <hr />

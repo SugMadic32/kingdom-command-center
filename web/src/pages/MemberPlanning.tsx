@@ -5,7 +5,7 @@ import { InventoryForm, BuildingLevelsForm } from '../components/InventoryForm';
 import { api, fmtDate, fmtMinutes, fmtNum, fmtShort } from '../lib/api';
 import { useLoad } from '../lib/session';
 import { levelLabel, resName, t } from '../lib/i18n';
-import { Async, Button, Empty, Field, Input, Modal, Note, PageHeader, Panel, Tag, useAction } from '../components/ui';
+import { Async, Button, Empty, Field, Input, Modal, Note, PageHeader, Panel, Tag, useAction, useConfirm } from '../components/ui';
 import { ItemsEditor, LevelSelect, QualityTag, ResultView } from './Plans';
 
 const RES = ['bread', 'wood', 'stone', 'iron', 'truegold', 'tempered_truegold'];
@@ -17,8 +17,19 @@ export function MemberPlanningPage() {
   const [term, setTerm] = useState('');
   const [onlyShared, setOnlyShared] = useState(false);
   const state = useLoad<any>(`/planning/members${alliance ? `?alliance_id=${alliance}` : ''}`, [alliance]);
+  const { run } = useAction();
+  const { confirm, node } = useConfirm();
+  async function shareAll() {
+    if (!(await confirm(t('Turn on sharing for everyone?'), t('Members who never chose get sharing turned on and a notification telling them how to turn it off. Members who turned it off themselves are skipped.'), t('Turn on sharing'), true))) return;
+    const r: any = await run(() => api('/planning/sharing/all', { method: 'POST' }));
+    if (r) { run(async () => r, t('Sharing turned on for {n} members. {s} chose off themselves and were skipped.', { n: r.changed, s: r.skipped })); state.reload(); }
+  }
+  async function shareOne(m: any) {
+    if (await run(() => api(`/planning/members/${m.id}/sharing`, { method: 'POST' }), t('Sharing turned on for {name}. They were notified.', { name: m.ingame_name || m.display_name }))) state.reload();
+  }
   return (
     <>
+      {node}
       <PageHeader title={t('Member planning')}
         lead={t("See the resources and building levels members share, and make upgrade plans for them. Members who haven't shared appear without numbers.")} />
       <Async state={state}>{(d) => {
@@ -27,7 +38,8 @@ export function MemberPlanningPage() {
         const notSharing = d.members.filter((m: any) => !m.share_inventory).length;
         return (
           <div className="stack">
-            {notSharing > 0 && <Note>{t('{n} members have not shared their resources yet. Ask them to turn on sharing in Settings › Privacy.', { n: notSharing })}</Note>}
+            {notSharing > 0 && <Note>{t('{n} members have not shared their resources yet. Ask them to turn on sharing in Settings › Privacy.', { n: notSharing })}
+              {d.kingdom_wide && <> <Button variant="primary" onClick={shareAll}>{t('Turn on sharing for everyone')}</Button></>}</Note>}
             <div className="toolbar">
               {d.kingdom_wide && (
                 <select className="input input-sm" value={alliance} onChange={(e) => setAlliance(e.target.value)} aria-label={t('Alliance')}>
@@ -48,7 +60,10 @@ export function MemberPlanningPage() {
                     <td className="num">{m.town_center == null ? '—' : levelLabel(m.town_center)}</td>
                     {RES.map((k) => <td key={k} className="num" title={m.inventory ? fmtNum(m.inventory[k] ?? 0) : undefined}>{m.inventory ? fmtShort(m.inventory[k] ?? 0) : ''}</td>)}
                     <td className="num" title={m.inventory ? SPEED.map((k) => `${resName(k)}: ${fmtMinutes(m.inventory[k] ?? 0)}`).join('\n') : undefined}>{m.inventory ? fmtMinutes(buildSpeed(m.inventory)) : ''}</td>
-                    <td className="small">{m.inventory ? (m.inventory_updated ? fmtDate(m.inventory_updated) : t('Never')) : <Tag tone="muted">{t('Not shared')}</Tag>}</td>
+                    <td className="small">{m.inventory ? (m.inventory_updated ? fmtDate(m.inventory_updated) : t('Never'))
+                      : m.share_user_choice === false ? <span className="muted" title={t('This member turned sharing off themselves. Only they can turn it back on.')}>{t('Off (their choice)')}</span>
+                      : d.kingdom_wide ? <Button variant="quiet" onClick={() => shareOne(m)}>{t('Turn on sharing')}</Button>
+                      : <Tag tone="muted">{t('Not shared')}</Tag>}</td>
                     <td>{(m.share_inventory || m.share_buildings) && <Link className="btn btn-quiet" to={`/planning/${m.id}`}><ClipboardList size={15} aria-hidden /> {t('Plan')}</Link>}</td>
                   </tr>
                 ))}</tbody>

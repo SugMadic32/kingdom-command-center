@@ -1,5 +1,5 @@
 export const config = {
-  version: '1.7.1',
+  version: '1.7.2',
   port: Number(process.env.PORT ?? 4000),
   databaseUrl: process.env.DATABASE_URL ?? 'postgres://kc:kc@localhost:5432/kingdom',
   isProd: process.env.NODE_ENV === 'production',

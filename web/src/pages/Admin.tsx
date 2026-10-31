@@ -23,6 +23,7 @@ const ACTIONS: Record<string, string> = {
   delete_account: 'deleted account', book: 'booked a slot', unbook: 'freed a slot',
   apply: 'applied', withdraw: 'withdrew', approve: 'appointed',
   email_on: 'turned email on', email_off: 'turned email off', email_on_all: 'turned email on for everyone', email_off_all: 'turned email off for everyone',
+  sharing_on: 'turned sharing on', sharing_on_all: 'turned sharing on for everyone',
   status_open: 'opened booking', status_closed: 'closed booking', status_draft: 'set to draft',
 };
 export const actionName = (a: string) => (ACTIONS[a] ? t(ACTIONS[a]) : a.replace(/_/g, ' '));

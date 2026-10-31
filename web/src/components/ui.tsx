@@ -110,14 +110,15 @@ export function Modal({ title, onClose, children, footer }: { title: string; onC
 
 /** Confirmation for destructive actions. */
 export function useConfirm() {
-  const [state, setState] = useState<null | { title: string; body: ReactNode; action: string; resolve: (v: boolean) => void }>(null);
-  const confirm = (title: string, body: ReactNode, action = t('Delete')) =>
-    new Promise<boolean>((resolve) => setState({ title, body, action, resolve }));
+  const [state, setState] = useState<null | { title: string; body: ReactNode; action: string; safe?: boolean; resolve: (v: boolean) => void }>(null);
+  /** safe = true for non-destructive confirmations (gold button instead of red) */
+  const confirm = (title: string, body: ReactNode, action = t('Delete'), safe = false) =>
+    new Promise<boolean>((resolve) => setState({ title, body, action, safe, resolve }));
   const node = state && (
     <Modal title={state.title} onClose={() => { state.resolve(false); setState(null); }}
       footer={<>
         <Button onClick={() => { state.resolve(false); setState(null); }}>{t('Keep it')}</Button>
-        <Button variant="danger" onClick={() => { state.resolve(true); setState(null); }}>{state.action}</Button>
+        <Button variant={state.safe ? 'primary' : 'danger'} onClick={() => { state.resolve(true); setState(null); }}>{state.action}</Button>
       </>}>
       {state.body}
     </Modal>

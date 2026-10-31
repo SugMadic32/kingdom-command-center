@@ -43,6 +43,7 @@ export function InventoryForm({ rows, onSave, submitLabel }: { rows: Row[]; onSa
         <div key={r.key} className="inv-row">
           <label htmlFor={`inv-${r.key}`}>{resName(r.key, r.name)}{r.deferred && <Tag tone="muted">{t('Switched off')}</Tag>}{r.verified === false && !r.deferred && <Tag tone="muted">{t('Name unverified')}</Tag>}</label>
           <AmountInput id={`inv-${r.key}`} value={amounts[r.key] ?? ''} disabled={r.deferred} label={resName(r.key, r.name)}
+            warnSmall={['bread', 'wood', 'stone', 'iron'].includes(r.key)}
             onChange={(v) => setAmounts({ ...amounts, [r.key]: v })} />
         </div>
       ))}
