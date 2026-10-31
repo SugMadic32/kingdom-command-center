@@ -29,8 +29,10 @@ planningRouter.get('/members', h(async (req, res) => {
   const scopeAlliance = kingdomWide(u) ? allianceFilter : u.alliance_id;
   const members = await q<any>(
     `SELECT u.id, u.display_name, u.ingame_name, u.share_inventory, u.share_buildings, u.share_user_choice, a.id AS alliance_id, a.tag AS alliance_tag, am.rank,
+            n.free_time AS note_free_time, n.truegold AS note_truegold, n.note AS note_text, n.updated_at AS note_updated,
             (SELECT max(updated_at) FROM member_inventory mi WHERE mi.user_id = u.id) AS inventory_updated
        FROM users u LEFT JOIN alliance_members am ON am.user_id = u.id LEFT JOIN alliances a ON a.id = am.alliance_id
+       LEFT JOIN member_notes n ON n.user_id = u.id
       WHERE u.deleted_at IS NULL AND ($1::int IS NULL OR am.alliance_id = $1)
       ORDER BY a.tag NULLS LAST, am.rank DESC NULLS LAST, u.display_name`, [scopeAlliance]);
   const ids = members.filter((m) => m.share_inventory).map((m) => m.id);
@@ -172,4 +174,68 @@ planningRouter.post('/members/:id/sharing', h(async (req, res) => {
   await turnOnSharing(u, 'id = $1', [id]);
   await audit(u.id, 'sharing_on', 'member_planning', id);
   res.json({ ok: true });
+}));
+
+// ---------- Leader notes (free time, Truegold, anything). Leaders only; no sharing needed. ----------
+const noteSchema = z.object({
+  free_time: z.string().trim().max(200).default(''),
+  truegold: z.number().int().min(0).max(1e12).nullable().default(null),
+  note: z.string().trim().max(1000).default(''),
+});
+
+async function visibleMember(u: SessionUser, id: number) {
+  const m = await one<{ id: number; alliance_id: number | null }>(
+    `SELECT u.id, am.alliance_id FROM users u LEFT JOIN alliance_members am ON am.user_id = u.id WHERE u.id = $1 AND u.deleted_at IS NULL`, [id]);
+  if (!m) throw notFound('Member');
+  if (!canSeeMember(u, m.alliance_id)) throw forbidden('You can only plan for members of your own alliance.');
+  return m;
+}
+
+async function saveNote(memberId: number, n: z.infer<typeof noteSchema>, by: number) {
+  await q(`INSERT INTO member_notes (user_id, free_time, truegold, note, updated_by) VALUES ($1,$2,$3,$4,$5)
+           ON CONFLICT (user_id) DO UPDATE SET free_time = EXCLUDED.free_time, truegold = EXCLUDED.truegold, note = EXCLUDED.note,
+             updated_by = EXCLUDED.updated_by, updated_at = now()`, [memberId, n.free_time, n.truegold, n.note, by]);
+}
+
+planningRouter.get('/members/:id/notes', h(async (req, res) => {
+  const m = await visibleMember(req.user!, intParam(req.params.id));
+  res.json({ notes: await one(
+    `SELECT n.free_time, n.truegold, n.note, n.updated_at, c.display_name AS updated_by_name
+       FROM member_notes n LEFT JOIN users c ON c.id = n.updated_by WHERE n.user_id = $1`, [m.id]) });
+}));
+
+planningRouter.put('/members/:id/notes', h(async (req, res) => {
+  const u = req.user!;
+  if (!canPlan(u)) throw forbidden('Only the kingdom admin, alliance managers and R4/R5 can open member planning.');
+  const m = await visibleMember(u, intParam(req.params.id));
+  const n = noteSchema.parse(req.body);
+  await saveNote(m.id, n, u.id);
+  await audit(u.id, 'update', 'member_notes', m.id, n, m.alliance_id);
+  res.json({ ok: true });
+}));
+
+/** Paste a list: each row is matched to a member by in-game name, then display name (case-insensitive). */
+planningRouter.post('/notes/import', h(async (req, res) => {
+  const u = req.user!;
+  if (!canPlan(u)) throw forbidden('Only the kingdom admin, alliance managers and R4/R5 can open member planning.');
+  const { rows, dry_run } = z.object({
+    rows: z.array(noteSchema.extend({ name: z.string().trim().min(1).max(60) })).min(1).max(500),
+    dry_run: z.boolean().default(false),
+  }).parse(req.body);
+  const people = await q<{ id: number; display_name: string; ingame_name: string | null; alliance_id: number | null }>(
+    `SELECT u.id, u.display_name, u.ingame_name, am.alliance_id FROM users u LEFT JOIN alliance_members am ON am.user_id = u.id WHERE u.deleted_at IS NULL`);
+  const visible = people.filter((p) => canSeeMember(u, p.alliance_id));
+  const norm = (s: string) => s.trim().toLowerCase();
+  const matched: { name: string; id: number; member: string }[] = [];
+  const unmatched: string[] = [];
+  for (const r of rows) {
+    const hit = visible.filter((p) => p.ingame_name && norm(p.ingame_name) === norm(r.name));
+    const hits = hit.length ? hit : visible.filter((p) => norm(p.display_name) === norm(r.name));
+    if (hits.length === 1) {
+      matched.push({ name: r.name, id: hits[0].id, member: hits[0].ingame_name || hits[0].display_name });
+      if (!dry_run) await saveNote(hits[0].id, r, u.id);
+    } else unmatched.push(r.name);
+  }
+  if (!dry_run) await audit(u.id, 'import', 'member_notes', null, { matched: matched.length, unmatched: unmatched.length });
+  res.json({ matched, unmatched });
 }));

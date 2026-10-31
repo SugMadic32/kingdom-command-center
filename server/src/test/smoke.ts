@@ -375,6 +375,19 @@ check('member notified that sharing was turned on', (await leader.req('GET', '/m
 check('admin cannot override a member who chose off', (await admin.req('POST', `/planning/members/${ids.member}/sharing`)).status === 400);
 await member.req('PATCH', '/me/profile', { share_inventory: true, share_buildings: true });
 
+console.log('Leader notes');
+check('admin saves notes for a member', (await admin.req('PUT', `/planning/members/${ids.member}/notes`, { free_time: '20:00-23:00 UTC daily', truegold: 2500, note: 'Rally lead' })).status === 200);
+check('notes appear in member planning list', (await admin.req('GET', '/planning/members')).body.members.find((x: any) => x.id === ids.member).note_truegold === 2500);
+await member.req('PATCH', '/me/profile', { share_inventory: false, share_buildings: false });
+check('notes work for members who do not share', (await admin.req('PUT', `/planning/members/${ids.member}/notes`, { free_time: 'weekends', truegold: null, note: '' })).status === 200);
+await member.req('PATCH', '/me/profile', { share_inventory: true, share_buildings: true });
+check('members cannot read notes', (await member.req('GET', `/planning/members/${ids.member}/notes`)).status === 403);
+const imp = (await admin.req('POST', '/planning/notes/import', { rows: [{ name: 'memberr1', free_time: '12:00 UTC', truegold: 900 }, { name: 'Nobody here', free_time: 'x' }] })).body;
+check('import matches by in-game name, case-insensitive', imp.matched.length === 1 && imp.unmatched[0] === 'Nobody here');
+check('import saved', (await admin.req('GET', `/planning/members/${ids.member}/notes`)).body.notes.truegold === 900);
+const dry = (await admin.req('POST', '/planning/notes/import', { rows: [{ name: 'MemberR1', truegold: 1 }], dry_run: true })).body;
+check('dry run does not save', dry.matched.length === 1 && (await admin.req('GET', `/planning/members/${ids.member}/notes`)).body.notes.truegold === 900);
+
 console.log('Account deletion');
 const del = new Client();
 await del.req('POST', '/auth/login', { email: 'other@example.com', password: 'correct-horse-1' });
