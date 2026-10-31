@@ -9,6 +9,8 @@ import { toCsv } from '../lib/csv.js';
 import { validTimeZone } from './auth.js';
 import { config } from '../lib/config.js';
 import { pushConfigured } from '../lib/notify.js';
+import { emailConfigured } from '../lib/email.js';
+import { saveInventory, saveBuildings, inventorySchema, buildingsSchema } from '../lib/memberData.js';
 
 export const meRouter = Router();
 meRouter.use(requireAuth);
@@ -17,9 +19,9 @@ meRouter.use(requireAuth);
 meRouter.get('/profile', h(async (req, res) => {
   const p = await one(
     `SELECT id, email, display_name, ingame_name, time_zone, language, share_inventory, share_buildings,
-            notify_site, notify_push, notify_discord, reminder_minutes, discord_user_id IS NOT NULL AS discord_linked
+            notify_site, notify_push, notify_discord, notify_email, reminder_minutes, discord_user_id IS NOT NULL AS discord_linked
        FROM users WHERE id = $1`, [req.user!.id]);
-  res.json({ profile: p, push_public_key: pushConfigured ? config.vapidPublic : null });
+  res.json({ profile: p, push_public_key: pushConfigured ? config.vapidPublic : null, email_configured: emailConfigured() });
 }));
 
 meRouter.patch('/profile', h(async (req, res) => {
@@ -33,6 +35,7 @@ meRouter.patch('/profile', h(async (req, res) => {
     notify_site: z.boolean(),
     notify_push: z.boolean(),
     notify_discord: z.boolean(),
+    notify_email: z.boolean(),
     reminder_minutes: z.number().int().min(5).max(1440),
   }).partial().parse(req.body);
   if (b.time_zone && !validTimeZone(b.time_zone)) throw bad('time_zone: unknown time zone');
@@ -40,6 +43,7 @@ meRouter.patch('/profile', h(async (req, res) => {
   if (!keys.length) return res.json({ ok: true });
   const sets = keys.map((k, i) => `${k} = $${i + 2}`).join(', ');
   await q(`UPDATE users SET ${sets} WHERE id = $1`, [req.user!.id, ...keys.map((k) => (b as any)[k])]);
+  if (b.notify_email !== undefined) await q('UPDATE users SET notify_email_user_choice = $2 WHERE id = $1', [req.user!.id, b.notify_email]);
   res.json({ ok: true });
 }));
 
@@ -53,15 +57,7 @@ meRouter.get('/inventory', h(async (req, res) => {
 }));
 
 meRouter.put('/inventory', h(async (req, res) => {
-  const b = z.record(z.string().max(40), z.number().int().min(0).max(1e15)).parse(req.body);
-  await tx(async (c) => {
-    for (const [key, amount] of Object.entries(b)) {
-      await c.query(
-        `INSERT INTO member_inventory (user_id, resource_key, amount) VALUES ($1,$2,$3)
-         ON CONFLICT (user_id, resource_key) DO UPDATE SET amount = EXCLUDED.amount, updated_at = now()`,
-        [req.user!.id, key, amount]);
-    }
-  });
+  await saveInventory(req.user!.id, inventorySchema.parse(req.body), req.user!.id);
   res.json({ ok: true });
 }));
 
@@ -75,20 +71,7 @@ meRouter.get('/buildings', h(async (req, res) => {
 }));
 
 meRouter.put('/buildings', h(async (req, res) => {
-  const b = z.array(z.object({
-    building_id: z.number().int().positive(), level: z.number().int().min(0).max(1000), notes: z.string().max(300).optional(),
-  })).max(500).parse(req.body);
-  await tx(async (c) => {
-    for (const r of b) {
-      const max = (await c.query('SELECT max_level FROM game_buildings WHERE id = $1', [r.building_id])).rows[0]?.max_level;
-      if (max == null) throw bad(`Building ${r.building_id} does not exist.`);
-      if (r.level > max) throw bad(`Level ${r.level} is above the maximum of ${max}.`);
-      await c.query(
-        `INSERT INTO member_buildings (user_id, building_id, level, notes) VALUES ($1,$2,$3,$4)
-         ON CONFLICT (user_id, building_id) DO UPDATE SET level = EXCLUDED.level, notes = EXCLUDED.notes, updated_at = now()`,
-        [req.user!.id, r.building_id, r.level, r.notes ?? '']);
-    }
-  });
+  await saveBuildings(req.user!.id, buildingsSchema.parse(req.body), req.user!.id);
   res.json({ ok: true });
 }));
 

@@ -97,6 +97,26 @@ Everything the site shows is entered by your own officers. Nothing is pre-filled
 - **Sharing default:** Admin console → Members & roles → *Sharing default*. When on, new members share with leaders (the sign-up page tells them) and can turn it off in Settings. Existing members turn it on themselves.
 - **Delete old datasets:** Game data library → pick a draft or archived version → Delete. The published one can't be deleted.
 
+## Email notifications
+
+Railway's Hobby plan blocks SMTP, so email goes through an HTTPS email API. Set these Railway variables and redeploy:
+
+| Variable | Value |
+|---|---|
+| `EMAIL_PROVIDER` | `resend` or `brevo` |
+| `EMAIL_API_KEY` | API key from that service |
+| `EMAIL_FROM` | Sender address (a domain or sender you verified with the service) |
+| `EMAIL_FROM_NAME` | Optional, e.g. `GTO Command Center` |
+
+Then **Admin console → Integrations → Send test email to me**.
+
+- **Admin:** Admin console → Members & roles → *Turn on for everyone*, or the Email switch per member. *Defaults for new members* turns email on for new sign-ups (they are told).
+- **Members:** Settings → Notifications → Email on/off. If a member turns it off themselves, admin switches skip them. Failed sends appear in the Delivery log with the reason.
+
+## Typing amounts
+
+Resource boxes accept `295M`, `1.5B`, `250K`, `2T`, `1,5B`, `3억`, `500만`. The exact number is shown under the box before saving.
+
 ## King's appointments
 
 After the King's Castle is won, members book time slots for the positions the King can appoint.
@@ -156,7 +176,7 @@ createdb kingdom_test
 TEST_DATABASE_URL=postgres://USER:PASS@localhost:5432/kingdom_test npm test
 ```
 
-- 144 end-to-end checks cover permissions, privacy, the calculator, Truegold tiers, events, King's appointments, reminders, languages, audit and account deletion.
+- 168 end-to-end checks cover permissions, privacy, the calculator, Truegold tiers, events, King's appointments, reminders, languages, audit and account deletion.
 - **Warning:** the test wipes the test database. Never point it at production.
 
 ## Known limits (honest list)

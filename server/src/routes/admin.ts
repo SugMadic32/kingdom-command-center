@@ -6,6 +6,7 @@ import { requireAuth, requireAdmin, requirePerm, randomToken, sha256, isAdmin, i
 import { audit } from '../lib/audit.js';
 import { config } from '../lib/config.js';
 import { discordReady, pushConfigured } from '../lib/notify.js';
+import { emailInfo, sendEmail, emailHtml } from '../lib/email.js';
 
 export const adminRouter = Router();
 adminRouter.use(requireAuth);
@@ -15,7 +16,7 @@ const PERMS = ['event_manager', 'data_curator', 'alliance_manager', 'announcemen
 adminRouter.get('/users', requireAdmin, h(async (req, res) => {
   const term = `%${String(req.query.q ?? '').slice(0, 60)}%`;
   res.json({ users: await q(
-    `SELECT u.id, u.email, u.display_name, u.ingame_name, u.kingdom_role, u.created_at,
+    `SELECT u.id, u.email, u.display_name, u.ingame_name, u.kingdom_role, u.created_at, u.notify_email, u.notify_email_user_choice,
             COALESCE(ARRAY(SELECT permission FROM user_permissions p WHERE p.user_id = u.id ORDER BY permission), '{}') AS permissions,
             a.tag AS alliance_tag, am.rank
        FROM users u LEFT JOIN alliance_members am ON am.user_id = u.id LEFT JOIN alliances a ON a.id = am.alliance_id
@@ -65,14 +66,38 @@ adminRouter.post('/users/:id/reset-link', requireAdmin, h(async (req, res) => {
 // ---------- Kingdom settings ----------
 adminRouter.get('/kingdom-settings', requireAdmin, h(async (_req, res) => {
   const s = await one<{ value: any }>(`SELECT value FROM integration_settings WHERE key = 'kingdom'`);
-  res.json({ share_default: s?.value?.share_default !== false });
+  res.json({ share_default: s?.value?.share_default !== false, email_default: s?.value?.email_default !== false });
 }));
 adminRouter.put('/kingdom-settings', requireAdmin, h(async (req, res) => {
-  const b = z.object({ share_default: z.boolean() }).parse(req.body);
+  const b = z.object({ share_default: z.boolean(), email_default: z.boolean() }).partial().parse(req.body);
   await q(`INSERT INTO integration_settings (key, value, updated_by) VALUES ('kingdom',$1,$2)
-           ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_by = EXCLUDED.updated_by, updated_at = now()`, [b, req.user!.id]);
+           ON CONFLICT (key) DO UPDATE SET value = integration_settings.value || EXCLUDED.value, updated_by = EXCLUDED.updated_by, updated_at = now()`, [b, req.user!.id]);
   await audit(req.user!.id, 'update', 'integration', 'kingdom', b);
   res.json({ ok: true });
+}));
+
+// ---------- Email on/off for members (a member's own "off" is always respected) ----------
+adminRouter.put('/users/:id/notify-email', requireAdmin, h(async (req, res) => {
+  const id = intParam(req.params.id);
+  const { on } = z.object({ on: z.boolean() }).parse(req.body);
+  const u = await one<{ email: string | null; notify_email_user_choice: boolean | null }>('SELECT email, notify_email_user_choice FROM users WHERE id = $1 AND deleted_at IS NULL', [id]);
+  if (!u) throw notFound('Member');
+  if (on && u.notify_email_user_choice === false) throw bad('This member turned email off themselves. Only they can turn it back on.');
+  if (on && !u.email) throw bad('This member has no email address.');
+  await q('UPDATE users SET notify_email = $2 WHERE id = $1', [id, on]);
+  await audit(req.user!.id, on ? 'email_on' : 'email_off', 'user', id);
+  res.json({ ok: true });
+}));
+
+adminRouter.post('/notify-email/all', requireAdmin, h(async (req, res) => {
+  const { on } = z.object({ on: z.boolean() }).parse(req.body);
+  const changed = on
+    ? await q(`UPDATE users SET notify_email = TRUE WHERE deleted_at IS NULL AND email IS NOT NULL AND notify_email = FALSE
+                 AND notify_email_user_choice IS DISTINCT FROM FALSE RETURNING id`)
+    : await q(`UPDATE users SET notify_email = FALSE WHERE deleted_at IS NULL AND notify_email = TRUE RETURNING id`);
+  const skipped = on ? (await one<{ n: number }>(`SELECT count(*)::int AS n FROM users WHERE deleted_at IS NULL AND notify_email_user_choice = FALSE`))?.n ?? 0 : 0;
+  await audit(req.user!.id, on ? 'email_on_all' : 'email_off_all', 'user', null, { changed: changed.length, skipped });
+  res.json({ changed: changed.length, skipped });
 }));
 
 // ---------- Integrations ----------
@@ -87,6 +112,7 @@ adminRouter.get('/integrations', requirePerm('integration_manager'), h(async (_r
       connected: discordReady(),
     },
     push: { configured: pushConfigured },
+    email: emailInfo(),
   });
 }));
 
@@ -98,6 +124,16 @@ adminRouter.put('/integrations/discord', requirePerm('integration_manager'), h(a
     [b, req.user!.id]);
   await audit(req.user!.id, 'update', 'integration', 'discord', b);
   res.json({ ok: true });
+}));
+
+adminRouter.post('/integrations/email-test', requirePerm('integration_manager'), h(async (req, res) => {
+  const me = await one<{ email: string | null }>('SELECT email FROM users WHERE id = $1', [req.user!.id]);
+  if (!me?.email) throw bad('Your account has no email address.');
+  try {
+    await sendEmail(me.email, 'Test email from Kingdom Command Center', 'If you can read this, email notifications work.',
+      emailHtml('Test email', 'If you can read this, email notifications work.', config.appUrl, 'Open the Command Center', 'Sent from Admin console › Integrations.'));
+  } catch (e: any) { throw bad(String(e?.message ?? e)); }
+  res.json({ ok: true, to: me.email });
 }));
 
 adminRouter.get('/deliveries', requirePerm('integration_manager'), h(async (req, res) => {

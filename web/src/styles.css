@@ -390,3 +390,10 @@ a.list-row:hover { text-decoration: none; color: var(--gold); }
 .speed-head { font-size: 0.78rem; color: var(--muted); text-align: right; }
 @media (max-width: 520px) { .speed-row { grid-template-columns: repeat(3, minmax(0, 1fr)); } .speed-row label { grid-column: 1 / -1; } }
 .sub-head { font-family: var(--display); font-size: 1.1rem; margin: 10px 0 0; padding-top: 12px; border-top: 1px solid var(--line); }
+.amount-input { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.amount-hint { font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.amount-hint.bad { color: var(--danger); }
+.input[aria-invalid="true"] { border-color: var(--danger); }
+.inv-row { align-items: start; }
+.inv-row > label { padding-top: 8px; }
+.modal-body > .note + form { margin-top: 12px; }

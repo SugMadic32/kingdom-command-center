@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Copy, Download, Link2, Plus, RefreshCw, Trash2, X } from 'lucide-react';
 import { api, download, fmtDate, fmtDuration, fmtNum, fmtShort } from '../lib/api';
 import { useLoad, useSession } from '../lib/session';
+import { AmountInput } from '../components/AmountInput';
+import { parseAmount } from '../lib/amount';
 import { levelLabel, resName, t } from '../lib/i18n';
 import { Async, Button, Empty, ErrorNote, Field, Input, Note, PageHeader, Panel, StatusMark, Tag, useAction, useConfirm } from '../components/ui';
 
@@ -178,7 +180,11 @@ export function CalculatorPage() {
   });
   async function calc() {
     const body: any = { items, assumptions: assumptions() };
-    if (!useSaved) body.inventory = Object.fromEntries(Object.entries(custom).map(([k, v]) => [k, Number(v.replace(/[, ]/g, '')) || 0]));
+    if (!useSaved) {
+      const bad = Object.entries(custom).find(([, v]) => Number.isNaN(parseAmount(v)));
+      if (bad) return run(async () => { throw new Error(t('{resource}: not a number. Type for example 295M or 1.5B.', { resource: resName(bad[0]) })); });
+      body.inventory = Object.fromEntries(Object.entries(custom).map(([k, v]) => [k, parseAmount(v)]));
+    }
     const r = await run(() => api('/plans/calculate', { body }));
     if (r) setResult((r as any).result);
   }
@@ -204,7 +210,7 @@ export function CalculatorPage() {
                 <label className="radio"><input type="radio" checked={!useSaved} onChange={() => setUseSaved(false)} /> {t('Try other amounts (not saved)')}</label>
                 {!useSaved && inv.data && inv.data.inventory.filter((r: any) => !r.deferred && r.kind !== 'speedup').map((r: any) => (
                   <div key={r.key} className="inv-row"><label htmlFor={`c-${r.key}`}>{resName(r.key, r.name)}</label>
-                    <Input id={`c-${r.key}`} inputMode="numeric" value={custom[r.key] ?? ''} placeholder={String(r.amount)} onChange={(e) => setCustom({ ...custom, [r.key]: e.target.value })} /></div>
+                    <AmountInput id={`c-${r.key}`} value={custom[r.key] ?? ''} placeholder={fmtShort(r.amount)} label={resName(r.key, r.name)} onChange={(v) => setCustom({ ...custom, [r.key]: v })} /></div>
                 ))}
               </fieldset>
               <hr />

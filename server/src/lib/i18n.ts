@@ -64,6 +64,27 @@ const templates: Record<string, Tpl> = {
     fr: { title: "{name} a créé un plan d'amélioration pour vous : {plan}", body: '{note}' },
     id: { title: '{name} membuat rencana peningkatan untuk Anda: {plan}', body: '{note}' },
   },
+  resources_updated_by_leader: {
+    en: { title: '{name} updated your resources and speedups', body: 'Check them in Resources & buildings.' },
+    ko: { title: '{name} 님이 내 자원과 가속을 수정했습니다', body: '자원 & 건물에서 확인하세요.' },
+    fr: { title: '{name} a mis à jour vos ressources et accélérateurs', body: 'Vérifiez dans Ressources et bâtiments.' },
+    id: { title: '{name} memperbarui sumber daya dan percepatan Anda', body: 'Periksa di Sumber daya & bangunan.' },
+  },
+  buildings_updated_by_leader: {
+    en: { title: '{name} updated your building levels', body: 'Check them in Resources & buildings.' },
+    ko: { title: '{name} 님이 내 건물 레벨을 수정했습니다', body: '자원 & 건물에서 확인하세요.' },
+    fr: { title: '{name} a mis à jour vos niveaux de bâtiments', body: 'Vérifiez dans Ressources et bâtiments.' },
+    id: { title: '{name} memperbarui level bangunan Anda', body: 'Periksa di Sumber daya & bangunan.' },
+  },
+  email_button: { en: { title: 'Open the Command Center' }, ko: { title: '커맨드 센터 열기' }, fr: { title: 'Ouvrir le Command Center' }, id: { title: 'Buka Command Center' } },
+  email_footer: {
+    en: { title: 'You get this because email notifications are on. Turn them off in Settings › Notifications.' },
+    ko: { title: '이메일 알림이 켜져 있어 받은 메일입니다. 설정 › 알림에서 끌 수 있습니다.' },
+    fr: { title: 'Vous recevez ceci car les notifications par e-mail sont activées. Désactivez-les dans Paramètres › Notifications.' },
+    id: { title: 'Anda menerima ini karena notifikasi email aktif. Matikan di Pengaturan › Notifikasi.' },
+  },
+  what_resources: { en: { title: 'resources and speedups' }, ko: { title: '자원과 가속' }, fr: { title: 'ressources et accélérateurs' }, id: { title: 'sumber daya dan percepatan' } },
+  what_buildings: { en: { title: 'building levels' }, ko: { title: '건물 레벨' }, fr: { title: 'niveaux de bâtiments' }, id: { title: 'level bangunan' } },
   reminder: {
     en: { title: 'Starting in {mins} min: {title}' },
     ko: { title: '{mins}분 후 시작: {title}' },

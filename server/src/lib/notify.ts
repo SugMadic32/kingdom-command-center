@@ -2,6 +2,7 @@ import webpush from 'web-push';
 import { q, one } from './db.js';
 import { config } from './config.js';
 import { render } from './i18n.js';
+import { emailConfigured, emailHtml, sendEmail } from './email.js';
 
 export const pushConfigured = Boolean(config.vapidPublic && config.vapidPrivate);
 if (pushConfigured) webpush.setVapidDetails(config.vapidSubject, config.vapidPublic, config.vapidPrivate);
@@ -33,13 +34,14 @@ export async function audienceFor(scope: 'kingdom' | 'alliance', allianceId: num
 /** Queue a message on every channel each user has switched on. */
 export async function notifyUsers(userIds: number[], m: Message) {
   if (!userIds.length) return;
-  const users = await q<{ id: number; language: string; notify_site: boolean; notify_push: boolean; notify_discord: boolean; discord_user_id: string | null }>(
-    `SELECT id, language, notify_site, notify_push, notify_discord, discord_user_id FROM users
+  const users = await q<{ id: number; language: string; notify_site: boolean; notify_push: boolean; notify_discord: boolean; notify_email: boolean; email: string | null; discord_user_id: string | null }>(
+    `SELECT id, language, notify_site, notify_push, notify_discord, notify_email, email, discord_user_id FROM users
       WHERE id = ANY($1) AND deleted_at IS NULL`, [userIds],
   );
   for (const u of users) {
     const text = textFor(m, u.language);
-    const channels: ('site' | 'push' | 'discord')[] = [];
+    const channels: ('site' | 'push' | 'discord' | 'email')[] = [];
+    if (u.notify_email && u.email && emailConfigured()) channels.push('email');
     if (u.notify_site) channels.push('site');
     if (u.notify_push) channels.push('push');
     if (u.notify_discord && u.discord_user_id) channels.push('discord');
@@ -78,14 +80,20 @@ export async function notifyDiscordChannel(m: Message) {
 /** Deliver due push/Discord notifications. Failures are recorded, never hidden. */
 export async function deliverPending() {
   const due = await q<any>(
-    `SELECT n.*, u.discord_user_id FROM notifications n LEFT JOIN users u ON u.id = n.user_id
+    `SELECT n.*, u.discord_user_id, u.email, u.language FROM notifications n LEFT JOIN users u ON u.id = n.user_id
       WHERE n.status = 'pending' AND n.scheduled_for <= now() ORDER BY n.id LIMIT 100`,
   );
   const settings = await one<{ value: { channel_id?: string } }>(`SELECT value FROM integration_settings WHERE key = 'discord'`);
   for (const n of due) {
     try {
       const text = `**${n.title}**${n.body ? `\n${n.body}` : ''}${n.link ? `\n${config.appUrl}${n.link}` : ''}`;
-      if (n.channel === 'push') {
+      if (n.channel === 'email') {
+        if (!n.email) throw new Error('Member has no email address.');
+        const link = n.link ? `${config.appUrl}${n.link}` : null;
+        const footer = render(n.language, 'email_footer')?.title ?? '';
+        const button = render(n.language, 'email_button')?.title ?? 'Open';
+        await sendEmail(n.email, n.title, [n.body, link].filter(Boolean).join('\n\n'), emailHtml(n.title, n.body, link, button, footer));
+      } else if (n.channel === 'push') {
         if (!pushConfigured) throw new Error('Browser push is not configured on the server.');
         const subs = await q<{ id: number; endpoint: string; keys: any }>(
           'SELECT id, endpoint, keys FROM push_subscriptions WHERE user_id = $1', [n.user_id]);

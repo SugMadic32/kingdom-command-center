@@ -109,6 +109,11 @@ export function SettingsPage() {
                   : <span className="muted small">{t('Not set up on this server')}</span>}
               </div>
               <div className="inline-form">
+                <span className="grow">{t('Email')}: <b>{d.email_configured ? (p.notify_email ? t('on') : t('off')) : t('Not set up on this server')}</b>
+                  {d.email_configured && <small className="muted block">{p.email}</small>}</span>
+                {d.email_configured && <Button onClick={() => save({ notify_email: !p.notify_email })}>{p.notify_email ? t('Turn off') : t('Turn on')}</Button>}
+              </div>
+              <div className="inline-form">
                 <span className="grow">{t('Discord direct messages')}: <b>{p.discord_linked ? (p.notify_discord ? t('on') : t('off')) : t('account not linked')}</b></span>
                 {p.discord_linked
                   ? <>
@@ -118,7 +123,7 @@ export function SettingsPage() {
                   : <Button onClick={async () => { const r: any = await run(() => api('/me/discord/link-code', { method: 'POST' })); if (r) setCode(r.code); }}>{t('Link Discord')}</Button>}
               </div>
               {code && <Note>{t('In the kingdom Discord server, type /link {code}. The code expires in 15 minutes. Then refresh this page.', { code })}</Note>}
-              <p className="muted small">{t('Reminders only arrive on channels that are switched on and working. Failed deliveries are logged for admins.')}</p>
+              <p className="muted small">{t('Reminders only arrive on channels that are switched on and working. Failed deliveries are logged for admins.')} {t('If you turn email off here, admins cannot turn it back on for you.')}</p>
             </div>
           </Panel>
 

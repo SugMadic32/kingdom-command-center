@@ -22,6 +22,7 @@ const ACTIONS: Record<string, string> = {
   view_shared: 'viewed shared data', register: 'registered', change_password: 'changed password', reset_password: 'reset password',
   delete_account: 'deleted account', book: 'booked a slot', unbook: 'freed a slot',
   apply: 'applied', withdraw: 'withdrew', approve: 'appointed',
+  email_on: 'turned email on', email_off: 'turned email off', email_on_all: 'turned email on for everyone', email_off_all: 'turned email off for everyone',
   status_open: 'opened booking', status_closed: 'closed booking', status_draft: 'set to draft',
 };
 export const actionName = (a: string) => (ACTIONS[a] ? t(ACTIONS[a]) : a.replace(/_/g, ' '));
@@ -76,19 +77,37 @@ function Members() {
   const ks = useLoad<any>('/admin/kingdom-settings');
   return (
     <div className="stack">
-    <Panel title={t('Sharing default')}>
+    <Panel title={t('Defaults for new members')}>
       <Async state={ks}>{(k) => (
-        <label className="radio"><input type="checkbox" checked={k.share_default}
-          onChange={async (e) => { if (await run(() => api('/admin/kingdom-settings', { method: 'PUT', body: { share_default: e.target.checked } }), t('Saved'))) ks.reload(); }} />
-          {t('New members share their resources and building levels with leaders (they are told when they sign up and can turn it off)')}</label>
+        <div className="stack">
+          <label className="radio"><input type="checkbox" checked={k.share_default}
+            onChange={async (e) => { if (await run(() => api('/admin/kingdom-settings', { method: 'PUT', body: { share_default: e.target.checked } }), t('Saved'))) ks.reload(); }} />
+            {t('New members share their resources and building levels with leaders (they are told when they sign up and can turn it off)')}</label>
+          <label className="radio"><input type="checkbox" checked={k.email_default}
+            onChange={async (e) => { if (await run(() => api('/admin/kingdom-settings', { method: 'PUT', body: { email_default: e.target.checked } }), t('Saved'))) ks.reload(); }} />
+            {t('New members get email notifications (they are told when they sign up and can turn it off)')}</label>
+        </div>
       )}</Async>
+    </Panel>
+    <Panel title={t('Email notifications for current members')}>
+      <p className="muted small">{t('Members who turned email off themselves are always skipped. Their choice wins.')}</p>
+      <div className="row-actions">
+        <Button variant="primary" onClick={async () => {
+          const r: any = await run(() => api('/admin/notify-email/all', { body: { on: true } }));
+          if (r) { run(async () => r, t('Email turned on for {n} members. {s} chose off themselves and were skipped.', { n: r.changed, s: r.skipped })); state.reload(); }
+        }}>{t('Turn on for everyone')}</Button>
+        <Button onClick={async () => {
+          const r: any = await run(() => api('/admin/notify-email/all', { body: { on: false } }));
+          if (r) { run(async () => r, t('Email turned off for {n} members.', { n: r.changed })); state.reload(); }
+        }}>{t('Turn off for everyone')}</Button>
+      </div>
     </Panel>
     <Panel>
       {node}
       <div className="inline-form"><Input value={term} onChange={(e) => setTerm(e.target.value)} placeholder={t('Search name or email')} aria-label={t('Search members')} /></div>
       <Async state={state}>{(d) => d.users.length ? (
         <div className="table-wrap"><table className="table">
-          <thead><tr><th>{t('Player')}</th><th>{t('Alliance')}</th><th>{t('Kingdom role')}</th><th>{t('Permissions')}</th><th /></tr></thead>
+          <thead><tr><th>{t('Player')}</th><th>{t('Alliance')}</th><th>{t('Kingdom role')}</th><th>{t('Permissions')}</th><th>{t('Email')}</th><th /></tr></thead>
           <tbody>{d.users.map((u: any) => (
             <tr key={u.id}>
               <td><b>{u.display_name}</b><small className="muted block">{u.email}</small></td>
@@ -100,6 +119,11 @@ function Members() {
               </td>
               <td>{u.kingdom_role === 'admin' ? <Tag tone="gold">{t('All')}</Tag>
                 : u.permissions.length ? u.permissions.map((p: string) => <Tag key={p}>{permName(p)}</Tag>) : <span className="muted">{t('None')}</span>}</td>
+              <td>{u.notify_email_user_choice === false && !u.notify_email
+                ? <span className="muted small" title={t('This member turned email off themselves. Only they can turn it back on.')}>{t('Off (their choice)')}</span>
+                : <label className="radio"><input type="checkbox" checked={u.notify_email} disabled={!u.email}
+                    onChange={async (e) => { if (await run(() => api(`/admin/users/${u.id}/notify-email`, { method: 'PUT', body: { on: e.target.checked } }), t('Saved'))) state.reload(); }} />
+                    <span className="small">{u.notify_email ? t('on') : t('off')}</span></label>}</td>
               <td className="row-actions">
                 {u.kingdom_role === 'officer' && <Button variant="quiet" onClick={() => setEditing(u)}>{t('Permissions')}</Button>}
                 <Button variant="quiet" icon={<KeyRound size={15} />} onClick={() => reset(u)} aria-label={t('Reset link for {name}', { name: u.display_name })} />
@@ -172,6 +196,15 @@ function Integrations() {
                 : <Button variant="primary" busy={busy} onClick={() => save(true)}>{t('Turn on channel posts')}</Button>}
             </div>
             <p className="muted small">{s.settings.enabled ? t('Channel posts are on.') : t('Channel posts are off.')} {t('Kingdom events, changes and reminders are posted there in English. Members link their own accounts in Settings to get direct messages in their language.')}</p>
+          </Panel>
+          <Panel title={t('Email notifications')}>
+            <div className="kv">
+              <div><span>{t('Status')}</span><b>{d.email.configured ? t('Set up ({provider})', { provider: d.email.provider }) : t('Not set up')}</b></div>
+              {d.email.from && <div><span>{t('Sent from')}</span><b>{d.email.from}</b></div>}
+            </div>
+            {d.email.configured
+              ? <Button busy={busy} onClick={async () => { const r: any = await run(() => api('/admin/integrations/email-test', { method: 'POST' })); if (r) run(async () => r, t('Test email sent to {email}. Check your inbox and spam folder.', { email: r.to })); }}>{t('Send test email to me')}</Button>
+              : <p className="muted small">{t('Add EMAIL_PROVIDER (resend or brevo), EMAIL_API_KEY and EMAIL_FROM as Railway variables, then redeploy.')}</p>}
           </Panel>
           <Panel title={t('Browser notifications')}>
             <p>{d.push.configured ? t('Configured. Members can turn them on in Settings.') : t('Not configured.')}</p>

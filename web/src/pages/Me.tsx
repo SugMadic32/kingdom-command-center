@@ -6,6 +6,7 @@ import { useLoad, useSession } from '../lib/session';
 import { resName, t } from '../lib/i18n';
 import { Async, Button, Empty, Input, Note, PageHeader, Panel, Tag, useAction } from '../components/ui';
 import { LevelSelect } from './Plans';
+import { InventoryForm, BuildingLevelsForm } from '../components/InventoryForm';
 
 export function Dashboard() {
   const { user } = useSession();
@@ -95,91 +96,18 @@ export function Dashboard() {
 export function Resources() {
   const inv = useLoad<any>('/me/inventory');
   const bld = useLoad<any>('/me/buildings');
-  const [amounts, setAmounts] = useState<Record<string, string>>({});
-  const [speed, setSpeed] = useState<Record<string, { d: string; h: string; m: string }>>({});
-  const [levels, setLevels] = useState<Record<number, number>>({});
-  const { busy, run } = useAction();
-
-  useEffect(() => {
-    if (inv.data) {
-      setAmounts(Object.fromEntries(inv.data.inventory.filter((r: any) => r.kind !== 'speedup').map((r: any) => [r.key, String(r.amount)])));
-      setSpeed(Object.fromEntries(inv.data.inventory.filter((r: any) => r.kind === 'speedup').map((r: any) => {
-        const m = Number(r.amount);
-        return [r.key, { d: String(Math.floor(m / 1440)), h: String(Math.floor((m % 1440) / 60)), m: String(m % 60) }];
-      })));
-    }
-  }, [inv.data]);
-  useEffect(() => {
-    if (bld.data) setLevels(Object.fromEntries(bld.data.buildings.map((b: any) => [b.id, b.level])));
-  }, [bld.data]);
-
-  async function saveInventory(e: FormEvent) {
-    e.preventDefault();
-    const body: Record<string, number> = {};
-    for (const [k, v] of Object.entries(amounts)) {
-      const n = Number(String(v).replace(/[, _.]/g, ''));
-      if (!Number.isInteger(n) || n < 0) return run(async () => { throw new Error(t('{resource}: enter a whole number of 0 or more.', { resource: resName(k) })); });
-      body[k] = n;
-    }
-    for (const [k, v] of Object.entries(speed)) {
-      const [d, h, m] = [v.d, v.h, v.m].map((x) => Number(String(x).trim() || '0'));
-      if (![d, h, m].every((x) => Number.isInteger(x) && x >= 0)) return run(async () => { throw new Error(t('{resource}: enter whole numbers of 0 or more.', { resource: resName(k) })); });
-      body[k] = d * 1440 + h * 60 + m;
-    }
-    if (await run(() => api('/me/inventory', { method: 'PUT', body }), t('Inventory saved'))) inv.reload();
-  }
-  async function saveBuildings(e: FormEvent) {
-    e.preventDefault();
-    const body = Object.entries(levels).map(([id, lvl]) => ({ building_id: Number(id), level: lvl }));
-    if (await run(() => api('/me/buildings', { method: 'PUT', body }), t('Building levels saved'))) bld.reload();
-  }
-
   return (
     <>
       <PageHeader title={t('Resources & buildings')} lead={t('Enter what you have in game. This stays on your account across devices.')}
         actions={<Button icon={<Download size={16} />} onClick={() => download('/me/inventory.csv')}>{t('Export CSV')}</Button>} />
       <div className="grid-2">
         <Panel title={t('Inventory')}>
-          <Async state={inv}>{(d) => (
-            <form onSubmit={saveInventory} className="stack">
-              {d.inventory.filter((r: any) => r.kind !== 'speedup').map((r: any) => (
-                <div key={r.key} className="inv-row">
-                  <label htmlFor={`inv-${r.key}`}>{resName(r.key, r.name)}{r.deferred && <Tag tone="muted">{t('Switched off')}</Tag>}{!r.verified && !r.deferred && <Tag tone="muted">{t('Name unverified')}</Tag>}</label>
-                  <Input id={`inv-${r.key}`} inputMode="numeric" value={amounts[r.key] ?? ''} disabled={r.deferred}
-                    onChange={(e) => setAmounts({ ...amounts, [r.key]: e.target.value })} />
-                </div>
-              ))}
-              <h3 className="sub-head">{t('Speedups')}</h3>
-              <div className="speed-row"><span /><span className="speed-head">{t('Days')}</span><span className="speed-head">{t('Hours')}</span><span className="speed-head">{t('Minutes')}</span></div>
-              {d.inventory.filter((r: any) => r.kind === 'speedup').map((r: any) => {
-                const v = speed[r.key] ?? { d: '0', h: '0', m: '0' };
-                const set = (part: 'd' | 'h' | 'm', val: string) => setSpeed({ ...speed, [r.key]: { ...v, [part]: val } });
-                return (
-                  <div key={r.key} className="speed-row">
-                    <label htmlFor={`sp-${r.key}`}>{resName(r.key, r.name)}</label>
-                    <Input id={`sp-${r.key}`} inputMode="numeric" value={v.d} onChange={(e) => set('d', e.target.value)} aria-label={`${resName(r.key)} ${t('Days')}`} />
-                    <Input inputMode="numeric" value={v.h} onChange={(e) => set('h', e.target.value)} aria-label={`${resName(r.key)} ${t('Hours')}`} />
-                    <Input inputMode="numeric" value={v.m} onChange={(e) => set('m', e.target.value)} aria-label={`${resName(r.key)} ${t('Minutes')}`} />
-                  </div>
-                );
-              })}
-              <p className="muted small">{t('Add up the speedup items in your bag, for example 5 × 1h = 5 hours.')}</p>
-              <Button variant="primary" busy={busy} type="submit">{t('Save inventory')}</Button>
-            </form>
-          )}</Async>
+          <Async state={inv}>{(d) => <InventoryForm rows={d.inventory} onSave={async (body) => { await api('/me/inventory', { method: 'PUT', body }); inv.reload(); }} />}</Async>
         </Panel>
         <Panel title={t('Building levels')}>
-          <Async state={bld}>{(d) => d.buildings.length ? (
-            <form onSubmit={saveBuildings} className="stack">
-              {d.buildings.map((b: any) => (
-                <div key={b.id} className="inv-row">
-                  <label htmlFor={`b-${b.id}`}>{b.name}</label>
-                  <LevelSelect label={b.name} max={b.max_level} value={levels[b.id] ?? 0} onChange={(n) => setLevels({ ...levels, [b.id]: n })} />
-                </div>
-              ))}
-              <Button variant="primary" busy={busy} type="submit">{t('Save levels')}</Button>
-            </form>
-          ) : <Note>{t('No buildings are in the game data library yet. A data curator adds them first.')}</Note>}</Async>
+          <Async state={bld}>{(d) => d.buildings.length
+            ? <BuildingLevelsForm rows={d.buildings} LevelSelect={LevelSelect} onSave={async (body) => { await api('/me/buildings', { method: 'PUT', body }); bld.reload(); }} />
+            : <Note>{t('No buildings are in the game data library yet. A data curator adds them first.')}</Note>}</Async>
         </Panel>
       </div>
     </>

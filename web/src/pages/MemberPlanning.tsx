@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ClipboardList } from 'lucide-react';
+import { ClipboardList, Pencil } from 'lucide-react';
+import { InventoryForm, BuildingLevelsForm } from '../components/InventoryForm';
 import { api, fmtDate, fmtMinutes, fmtNum, fmtShort } from '../lib/api';
 import { useLoad } from '../lib/session';
 import { levelLabel, resName, t } from '../lib/i18n';
-import { Async, Button, Empty, Field, Input, Note, PageHeader, Panel, Tag, useAction } from '../components/ui';
-import { ItemsEditor, QualityTag, ResultView } from './Plans';
+import { Async, Button, Empty, Field, Input, Modal, Note, PageHeader, Panel, Tag, useAction } from '../components/ui';
+import { ItemsEditor, LevelSelect, QualityTag, ResultView } from './Plans';
 
 const RES = ['bread', 'wood', 'stone', 'iron', 'truegold', 'tempered_truegold'];
 const SPEED = ['speedup_general', 'speedup_construction', 'speedup_research', 'speedup_training', 'speedup_healing'];
@@ -68,6 +69,8 @@ export function MemberPlanDetail() {
   const [result, setResult] = useState<any>(null);
   const [name, setName] = useState('');
   const [note, setNote] = useState('');
+  const [editing, setEditing] = useState<null | 'inventory' | 'buildings'>(null);
+  const resTypes = useLoad<any>('/game/resources');
   const { busy, run } = useAction();
 
   const levels: Record<number, number> = useMemo(() => Object.fromEntries((state.data?.buildings ?? []).map((b: any) => [b.id, b.level])), [state.data]);
@@ -97,10 +100,24 @@ export function MemberPlanDetail() {
       const who = m.ingame_name || m.display_name;
       return (
         <>
+          {editing === 'inventory' && resTypes.data && (
+            <Modal title={t("Edit {name}'s resources", { name: who })} onClose={() => setEditing(null)}>
+              <Note>{t('Use this when a member needs help. They get a notification that you changed their numbers.')}</Note>
+              <InventoryForm rows={resTypes.data.resources.map((r: any) => ({ ...r, amount: d.inventory?.[r.key] ?? 0 }))}
+                onSave={async (body) => { await api(`/planning/members/${m.id}/inventory`, { method: 'PUT', body }); setEditing(null); state.reload(); }} />
+            </Modal>
+          )}
+          {editing === 'buildings' && d.all_buildings && (
+            <Modal title={t("Edit {name}'s building levels", { name: who })} onClose={() => setEditing(null)}>
+              <BuildingLevelsForm rows={d.all_buildings} LevelSelect={LevelSelect}
+                onSave={async (body) => { await api(`/planning/members/${m.id}/buildings`, { method: 'PUT', body }); setEditing(null); state.reload(); }} />
+            </Modal>
+          )}
           <PageHeader title={t('Plan for {name}', { name: who })} lead={<>{m.alliance_tag && `[${m.alliance_tag}] `}<Link to="/planning">{t('Back to member planning')}</Link></>} />
           <div className="grid-calc">
             <div className="stack">
-              <Panel title={t('Their resources')}>
+              <Panel title={t('Their resources')} actions={d.inventory && <Button icon={<Pencil size={15} />} onClick={() => setEditing('inventory')}>{t('Edit')}</Button>}>
+                {d.last_update && <p className="muted small">{t('Last updated {date} by {name}', { date: fmtDate(d.last_update.updated_at), name: d.last_update.by_name ?? '—' })}</p>}
                 {d.inventory ? (
                   <div className="res-grid">{RES.map((k) => (
                     <div key={k} className="res"><span className="muted">{resName(k)}</span><b title={fmtNum(d.inventory[k] ?? 0)}>{fmtShort(d.inventory[k] ?? 0)}</b></div>
@@ -110,7 +127,7 @@ export function MemberPlanDetail() {
                   <li key={k} className="list-row"><span className="muted">{resName(k)}</span><b>{fmtMinutes(d.inventory[k] ?? 0)}</b></li>
                 ))}</ul>}
               </Panel>
-              <Panel title={t('Their building levels')}>
+              <Panel title={t('Their building levels')} actions={d.all_buildings && <Button icon={<Pencil size={15} />} onClick={() => setEditing('buildings')}>{t('Edit')}</Button>}>
                 {d.buildings ? (d.buildings.length ? (
                   <ul className="list">{d.buildings.map((b: any) => (
                     <li key={b.id} className="list-row"><span>{b.name}</span><b>{levelLabel(b.level)}</b></li>

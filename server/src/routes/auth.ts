@@ -6,6 +6,7 @@ import { q, one, tx } from '../lib/db.js';
 import { h, bad, HttpError } from '../lib/http.js';
 import { createSession, destroySession, requireAuth, sha256 } from '../lib/auth.js';
 import { audit } from '../lib/audit.js';
+import { emailConfigured } from '../lib/email.js';
 
 export const authRouter = Router();
 
@@ -32,10 +33,11 @@ authRouter.post('/register', limiter, h(async (req, res) => {
     const count = (await c.query('SELECT count(*)::int AS n FROM users')).rows[0].n as number;
     const setting = (await c.query(`SELECT value FROM integration_settings WHERE key = 'kingdom'`)).rows[0]?.value;
     const share = setting?.share_default !== false;
+    const emailOn = setting?.email_default !== false;
     const r = await c.query(
-      `INSERT INTO users (email, password_hash, display_name, ingame_name, time_zone, kingdom_role, language, share_inventory, share_buildings)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$8) RETURNING id, kingdom_role`,
-      [b.email, hash, b.display_name, b.ingame_name || null, b.time_zone ?? 'UTC', count === 0 ? 'admin' : 'member', b.language ?? 'en', share],
+      `INSERT INTO users (email, password_hash, display_name, ingame_name, time_zone, kingdom_role, language, share_inventory, share_buildings, notify_email)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$8,$9) RETURNING id, kingdom_role`,
+      [b.email, hash, b.display_name, b.ingame_name || null, b.time_zone ?? 'UTC', count === 0 ? 'admin' : 'member', b.language ?? 'en', share, emailOn],
     );
     return r.rows[0] as { id: number; kingdom_role: string };
   });
@@ -68,7 +70,7 @@ authRouter.get('/me', h(async (req, res) => {
 /** Public: tells the sign-up page whether new members share resources with leaders by default. */
 authRouter.get('/signup-info', h(async (_req, res) => {
   const s = await one<{ value: any }>(`SELECT value FROM integration_settings WHERE key = 'kingdom'`);
-  res.json({ share_default: s?.value?.share_default !== false });
+  res.json({ share_default: s?.value?.share_default !== false, email_default: s?.value?.email_default !== false && emailConfigured() });
 }));
 
 authRouter.post('/change-password', requireAuth, h(async (req, res) => {

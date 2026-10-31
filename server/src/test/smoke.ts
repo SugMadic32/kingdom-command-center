@@ -334,6 +334,36 @@ check('speedups never appear in building costs', !Object.keys(rS.totals).some((k
 check('leaders see member speedups', (await admin.req('GET', '/planning/members')).body.members.find((x: any) => x.id === ids.member).inventory.speedup_construction === 4410);
 check('speedup keys rejected as building costs', (await admin.req('PUT', `/game/versions/${(await admin.req('POST', '/game/versions', { label: 'sp' })).body.version.id}/levels`, { building_id: tc.id, level: 2, costs: { speedup_general: 5 }, status: 'in_game_confirmed' })).status === 400);
 
+console.log('Leader edits & email');
+check('admin fills in member resources', (await admin.req('PUT', `/planning/members/${ids.member}/inventory`, { wood: 295000000, speedup_general: 600 })).status === 200);
+check('member sees value entered by leader', (await member.req('GET', '/me/inventory')).body.inventory.find((r: any) => r.key === 'wood').amount === 295000000);
+check('member told who updated it', (await member.req('GET', '/me/notifications')).body.notifications.some((n: any) => n.kind === 'data_updated_by_leader'));
+check('detail shows who updated last', (await admin.req('GET', `/planning/members/${ids.member}`)).body.last_update?.by_name === 'mamamiya');
+check('admin sets member building levels', (await admin.req('PUT', `/planning/members/${ids.member}/buildings`, [{ building_id: tc.id, level: 3 }])).status === 200);
+check('member cannot edit another member', (await member.req('PUT', `/planning/members/${ids.leader}/inventory`, { wood: 1 })).status === 403);
+await member.req('PATCH', '/me/profile', { share_inventory: false });
+check('leader cannot edit when member does not share', (await admin.req('PUT', `/planning/members/${ids.member}/inventory`, { wood: 1 })).status === 403);
+await member.req('PATCH', '/me/profile', { share_inventory: true });
+const prof = (await member.req('GET', '/me/profile')).body;
+check('profile reports email not configured; new members start with email on', prof.email_configured === false && prof.profile.notify_email === true);
+check('email toggle saves', (await member.req('PATCH', '/me/profile', { notify_email: true })).status === 200);
+check('no email queued while email is not set up', (await pool.query(`SELECT count(*)::int AS n FROM notifications WHERE channel = 'email'`)).rows[0].n === 0);
+check('email test explains missing setup', /not set up/.test((await admin.req('POST', '/admin/integrations/email-test')).body.error ?? ''));
+
+console.log('Admin email control');
+await member.req('PATCH', '/me/profile', { notify_email: false });
+check('admin cannot override a member who chose off', (await admin.req('PUT', `/admin/users/${ids.member}/notify-email`, { on: true })).status === 400);
+check('admin turns email on for a member', (await admin.req('PUT', `/admin/users/${ids.leader}/notify-email`, { on: true })).status === 200);
+check('admin turns email off for a member', (await admin.req('PUT', `/admin/users/${ids.leader}/notify-email`, { on: false })).status === 200);
+const bulk = (await admin.req('POST', '/admin/notify-email/all', { on: true })).body;
+check('bulk on skips members who chose off', bulk.skipped >= 1 && (await member.req('GET', '/me/profile')).body.profile.notify_email === false);
+check('bulk on turns on the rest', (await leader.req('GET', '/me/profile')).body.profile.notify_email === true);
+check('member can still turn it off', (await leader.req('PATCH', '/me/profile', { notify_email: false })).status === 200);
+check('member cannot use admin switch', (await member.req('POST', '/admin/notify-email/all', { on: true })).status === 403);
+check('email default setting saves', (await admin.req('PUT', '/admin/kingdom-settings', { email_default: false })).status === 200 &&
+  (await admin.req('GET', '/admin/kingdom-settings')).body.email_default === false && (await admin.req('GET', '/admin/kingdom-settings')).body.share_default === true);
+await admin.req('PUT', '/admin/kingdom-settings', { email_default: true });
+
 console.log('Account deletion');
 const del = new Client();
 await del.req('POST', '/auth/login', { email: 'other@example.com', password: 'correct-horse-1' });

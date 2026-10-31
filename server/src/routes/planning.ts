@@ -6,6 +6,7 @@ import { requireAuth, isAdmin, has, isAllianceLeader, type SessionUser } from '.
 import { audit } from '../lib/audit.js';
 import { calculate, latestPublishedVersion } from '../lib/calc.js';
 import { notifyUsers } from '../lib/notify.js';
+import { saveInventory, saveBuildings, inventorySchema, buildingsSchema } from '../lib/memberData.js';
 
 /**
  * Member planning: the kingdom admin and alliance managers see every member who shares;
@@ -72,12 +73,18 @@ async function memberData(m: any) {
 planningRouter.get('/members/:id', h(async (req, res) => {
   const m = await memberFor(req.user!, intParam(req.params.id));
   const d = await memberData(m);
+  const last = await one<any>(
+    `SELECT mi.updated_at, c.display_name AS by_name FROM member_inventory mi LEFT JOIN users c ON c.id = mi.updated_by
+      WHERE mi.user_id = $1 ORDER BY mi.updated_at DESC LIMIT 1`, [m.id]);
+  const allBuildings = m.share_buildings ? await q(`SELECT b.id, b.key, b.name, b.max_level, COALESCE(mb.level,0) AS level FROM game_buildings b
+      LEFT JOIN member_buildings mb ON mb.building_id = b.id AND mb.user_id = $1 ORDER BY b.name`, [m.id]) : null;
   const plans = await q(
     `SELECT p.id, p.name, p.updated_at, p.result->>'quality' AS quality, c.display_name AS created_by_name
        FROM upgrade_plans p LEFT JOIN users c ON c.id = p.created_by
       WHERE p.owner_id = $1 AND (p.created_by = $2 OR p.shared_with_alliance) ORDER BY p.updated_at DESC`, [m.id, req.user!.id]);
   await audit(req.user!.id, 'view_shared', 'member_planning', m.id, {}, m.alliance_id);
-  res.json({ member: m, inventory: m.share_inventory ? d.inventory : null, buildings: m.share_buildings ? d.levelRows : null, plans });
+  res.json({ member: m, inventory: m.share_inventory ? d.inventory : null, buildings: m.share_buildings ? d.levelRows : null, all_buildings: allBuildings,
+    last_update: m.share_inventory ? last : null, plans });
 }));
 
 const items = z.array(z.object({
@@ -109,4 +116,27 @@ planningRouter.post('/members/:id/plans', h(async (req, res) => {
   await audit(u.id, 'create', 'upgrade_plan', p.id, { for_user: m.id, name: b.name }, m.alliance_id);
   await notifyUsers([m.id], { kind: 'plan_from_leader', tkey: 'plan_from_leader', params: { name: u.display_name, plan: b.name, note: b.note }, link: `/plans/${p.id}` });
   res.status(201).json({ plan: p });
+}));
+
+/** A leader fills in resources/speedups for a member who shares them (for members who need help entering data). */
+planningRouter.put('/members/:id/inventory', h(async (req, res) => {
+  const u = req.user!;
+  const m = await memberFor(u, intParam(req.params.id));
+  if (!m.share_inventory) throw forbidden('This member does not share their resources, so leaders cannot edit them.');
+  const b = inventorySchema.parse(req.body);
+  await saveInventory(m.id, b, u.id);
+  await audit(u.id, 'update', 'member_inventory', m.id, { keys: Object.keys(b) }, m.alliance_id);
+  await notifyUsers([m.id], { kind: 'data_updated_by_leader', tkey: 'resources_updated_by_leader', params: { name: u.display_name }, link: '/me/resources' });
+  res.json({ ok: true });
+}));
+
+planningRouter.put('/members/:id/buildings', h(async (req, res) => {
+  const u = req.user!;
+  const m = await memberFor(u, intParam(req.params.id));
+  if (!m.share_buildings) throw forbidden('This member does not share their building levels, so leaders cannot edit them.');
+  const b = buildingsSchema.parse(req.body);
+  await saveBuildings(m.id, b, u.id);
+  await audit(u.id, 'update', 'member_buildings', m.id, { count: b.length }, m.alliance_id);
+  await notifyUsers([m.id], { kind: 'data_updated_by_leader', tkey: 'buildings_updated_by_leader', params: { name: u.display_name }, link: '/me/resources' });
+  res.json({ ok: true });
 }));
