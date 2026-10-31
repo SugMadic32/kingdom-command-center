@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ClipboardList, NotebookPen, Pencil, Upload } from 'lucide-react';
-import { AmountInput } from '../components/AmountInput';
-import { parseAmount } from '../lib/amount';
+import { ClipboardList, Pencil } from 'lucide-react';
+import { RosterNotes } from './RosterNotes';
 import { InventoryForm, BuildingLevelsForm } from '../components/InventoryForm';
 import { api, fmtDate, fmtMinutes, fmtNum, fmtShort } from '../lib/api';
 import { useLoad } from '../lib/session';
@@ -19,8 +18,6 @@ export function MemberPlanningPage() {
   const [term, setTerm] = useState('');
   const [onlyShared, setOnlyShared] = useState(false);
   const [tab, setTab] = useState<'resources' | 'notes'>('resources');
-  const [noteFor, setNoteFor] = useState<any>(null);
-  const [importing, setImporting] = useState(false);
   const state = useLoad<any>(`/planning/members${alliance ? `?alliance_id=${alliance}` : ''}`, [alliance]);
   const { run } = useAction();
   const { confirm, node } = useConfirm();
@@ -36,15 +33,12 @@ export function MemberPlanningPage() {
     <>
       {node}
       <PageHeader title={t('Member planning')}
-        lead={t("See the resources and building levels members share, and make upgrade plans for them. Members who haven't shared appear without numbers.")}
-        actions={<Button icon={<Upload size={16} />} onClick={() => setImporting(true)}>{t('Import notes')}</Button>} />
+        lead={t("See the resources and building levels members share, and make upgrade plans for them. Members who haven't shared appear without numbers.")} />
       <div className="tabs" role="tablist">
         <button role="tab" aria-selected={tab === 'resources'} onClick={() => setTab('resources')}>{t('Resources')}</button>
         <button role="tab" aria-selected={tab === 'notes'} onClick={() => setTab('notes')}>{t('Notes')}</button>
       </div>
-      {noteFor && <NotesModal member={noteFor} onClose={() => setNoteFor(null)} onSaved={() => { setNoteFor(null); state.reload(); }} />}
-      {importing && <ImportNotesModal onClose={() => setImporting(false)} onDone={() => { setImporting(false); state.reload(); setTab('notes'); }} />}
-      <Async state={state}>{(d) => {
+      {tab === 'notes' ? <RosterNotes /> : <Async state={state}>{(d) => {
         const list = d.members.filter((m: any) => (!onlyShared || m.share_inventory)
           && (!term || `${m.display_name} ${m.ingame_name ?? ''}`.toLowerCase().includes(term.toLowerCase())));
         const notSharing = d.members.filter((m: any) => !m.share_inventory).length;
@@ -62,21 +56,7 @@ export function MemberPlanningPage() {
               <Input className="input input-sm" value={term} onChange={(e) => setTerm(e.target.value)} placeholder={t('Search players')} aria-label={t('Search players')} />
               <label className="radio"><input type="checkbox" checked={onlyShared} onChange={(e) => setOnlyShared(e.target.checked)} /> {t('Only members who share')}</label>
             </div>
-            {tab === 'notes' ? (list.length ? (
-              <div className="table-wrap"><table className="table">
-                <thead><tr><th>{t('Player')}</th><th>{t('Free time')}</th><th className="num">{t('Truegold (note)')}</th><th>{t('Note')}</th><th>{t('Updated')}</th><th /></tr></thead>
-                <tbody>{list.map((m: any) => (
-                  <tr key={m.id}>
-                    <td><b>{m.ingame_name || m.display_name}</b>{m.alliance_tag && <small className="muted block">[{m.alliance_tag}] {m.rank}</small>}</td>
-                    <td>{m.note_free_time || <span className="muted">—</span>}</td>
-                    <td className="num">{m.note_truegold != null ? fmtNum(m.note_truegold) : <span className="muted">—</span>}</td>
-                    <td className="note-cell">{m.note_text || <span className="muted">—</span>}</td>
-                    <td className="small">{m.note_updated ? fmtDate(m.note_updated) : ''}</td>
-                    <td><Button variant="quiet" icon={<NotebookPen size={15} />} onClick={() => setNoteFor(m)}>{t('Edit notes')}</Button></td>
-                  </tr>
-                ))}</tbody>
-              </table></div>
-            ) : <Empty title={t('No members match')} />) : list.length ? (
+            {list.length ? (
               <div className="table-wrap"><table className="table">
                 <thead><tr><th>{t('Player')}</th><th className="num">{t('Town Center')}</th>
                   {RES.map((k) => <th key={k} className="num">{resName(k)}</th>)}<th className="num">{t('Build speedups')}</th><th>{t('Updated')}</th><th /></tr></thead>
@@ -97,7 +77,7 @@ export function MemberPlanningPage() {
             ) : <Empty title={t('No members match')} />}
           </div>
         );
-      }}</Async>
+      }}</Async>}
     </>
   );
 }
@@ -214,68 +194,3 @@ export function MemberPlanDetail() {
   );
 }
 
-function NotesModal({ member, onClose, onSaved }: { member: any; onClose: () => void; onSaved: () => void }) {
-  const who = member.ingame_name || member.display_name;
-  const [free, setFree] = useState(member.note_free_time ?? '');
-  const [tg, setTg] = useState(member.note_truegold != null ? String(member.note_truegold) : '');
-  const [note, setNote] = useState(member.note_text ?? '');
-  const { busy, run } = useAction();
-  async function save() {
-    const n = tg.trim() === '' ? null : parseAmount(tg);
-    if (n !== null && Number.isNaN(n)) return run(async () => { throw new Error(t('Truegold: not a number.')); });
-    if (await run(() => api(`/planning/members/${member.id}/notes`, { method: 'PUT', body: { free_time: free, truegold: n, note } }), t('Notes saved'))) onSaved();
-  }
-  return (
-    <Modal title={t('Notes for {name}', { name: who })} onClose={onClose} footer={<Button variant="primary" busy={busy} onClick={save}>{t('Save notes')}</Button>}>
-      <div className="stack">
-        <p className="muted small">{t("Only leaders see these notes. They are separate from the member's own inventory.")}</p>
-        <Field label={t('Free time')} hint={t('Any text, e.g. 20:00–23:00 UTC daily, or weekends')}><Input value={free} onChange={(e) => setFree(e.target.value)} maxLength={200} /></Field>
-        <Field label={t('Truegold (note)')}><AmountInput value={tg} onChange={setTg} label={t('Truegold (note)')} /></Field>
-        <Field label={t('Note')}><textarea className="input" rows={3} value={note} onChange={(e) => setNote(e.target.value)} maxLength={1000} /></Field>
-      </div>
-    </Modal>
-  );
-}
-
-/** Paste rows from a chat or spreadsheet: name, free time, Truegold, note. Tab, semicolon, | or comma separated. */
-function parseRows(text: string) {
-  return text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean).map((line) => {
-    const sep = line.includes('\t') ? '\t' : line.includes(';') ? ';' : line.includes('|') ? '|' : ',';
-    const [name = '', free = '', tg = '', ...rest] = line.split(sep).map((x) => x.trim());
-    const n = tg === '' ? null : parseAmount(tg);
-    return { name, free_time: free, truegold: n, note: rest.join(' ').trim(), bad: n !== null && Number.isNaN(n) };
-  }).filter((r) => r.name && !/^(name|player|이름|nom|nama)$/i.test(r.name));
-}
-
-function ImportNotesModal({ onClose, onDone }: { onClose: () => void; onDone: () => void }) {
-  const [text, setText] = useState('');
-  const [preview, setPreview] = useState<null | { matched: any[]; unmatched: string[] }>(null);
-  const { busy, run } = useAction();
-  const rows = parseRows(text);
-  const badRows = rows.filter((r) => r.bad);
-  const body = (dry: boolean) => ({ rows: rows.filter((r) => !r.bad).map(({ bad, ...r }) => r), dry_run: dry });
-  async function check() {
-    const r: any = await run(() => api('/planning/notes/import', { body: body(true) }));
-    if (r) setPreview(r);
-  }
-  async function save() {
-    const r: any = await run(() => api('/planning/notes/import', { body: body(false) }), t('Notes saved'));
-    if (r) onDone();
-  }
-  return (
-    <Modal title={t('Import notes')} onClose={onClose}
-      footer={preview ? <Button variant="primary" busy={busy} disabled={!preview.matched.length} onClick={save}>{t('Save {n} notes', { n: preview.matched.length })}</Button>
-        : <Button variant="primary" busy={busy} disabled={!rows.length} onClick={check}>{t('Check names')}</Button>}>
-      <div className="stack">
-        <p className="muted small">{t('One member per line: name, free time, Truegold, note. Copy from a spreadsheet or separate with commas or semicolons. Names are matched to in-game names.')}</p>
-        <code className="codeblock">{'Alpy; 20:00-23:00 UTC; 2.5K; rally lead\nCloud; weekends; 900'}</code>
-        <textarea className="input" rows={8} value={text} onChange={(e) => { setText(e.target.value); setPreview(null); }} aria-label={t('Import notes')} />
-        {badRows.length > 0 && <Note tone="warn">{t('Truegold is not a number on these lines: {names}', { names: badRows.map((r) => r.name).join(', ') })}</Note>}
-        {preview && <>
-          <p><b>{t('{n} names found', { n: preview.matched.length })}</b>{preview.matched.length > 0 && <small className="muted block">{preview.matched.map((m) => m.member).join(', ')}</small>}</p>
-          {preview.unmatched.length > 0 && <Note tone="warn">{t('Not found (check spelling, or they have not registered yet): {names}', { names: preview.unmatched.join(', ') })}</Note>}
-        </>}
-      </div>
-    </Modal>
-  );
-}

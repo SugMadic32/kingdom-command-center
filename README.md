@@ -95,7 +95,7 @@ Everything the site shows is entered by your own officers. Nothing is pre-filled
 - **What:** each member's shared resources, Town Center level and last update. Members who don't share show "Not shared".
 - **Plan for a member:** click **Plan**, choose buildings and levels, then **Calculate** using their resources, then **Send plan**. It appears in the member's Saved plans, tagged with who made it, and they get a notification.
 - **Turn on sharing for everyone:** Member planning → button in the notice (admin and alliance managers). Members who never chose get sharing on and a notification explaining how to turn it off. Members who turned it off themselves are skipped. There is also a per-member *Turn on sharing* button.
-- **Notes tab:** leaders keep notes per member (free time, Truegold, free text). Only leaders see them; no sharing needed. **Import notes** accepts pasted lines `name; free time; Truegold; note` (tab, `;`, `|` or `,`), matched to in-game names, with a check step before saving.
+- **Notes tab:** a leaders-only list (alliance, name, Truegold, free time, note). **Paste list** accepts lines like `19. GTO Dragon rouge – 1400 / 06:00–08:30` or `Alpy; 20:00-23:00 UTC; 2.5K; note`, shows a preview, and saves without matching names, so unregistered players can be listed. Option to replace the old list. Registered players get a Plan link.
 - **Sharing default:** Admin console → Members & roles → *Sharing default*. When on, new members share with leaders (the sign-up page tells them) and can turn it off in Settings. Existing members turn it on themselves.
 - **Delete old datasets:** Game data library → pick a draft or archived version → Delete. The published one can't be deleted.
 
@@ -178,7 +178,7 @@ createdb kingdom_test
 TEST_DATABASE_URL=postgres://USER:PASS@localhost:5432/kingdom_test npm test
 ```
 
-- 180 end-to-end checks cover permissions, privacy, the calculator, Truegold tiers, events, King's appointments, reminders, languages, audit and account deletion.
+- 186 end-to-end checks cover permissions, privacy, the calculator, Truegold tiers, events, King's appointments, reminders, languages, audit and account deletion.
 - **Warning:** the test wipes the test database. Never point it at production.
 
 ## Known limits (honest list)

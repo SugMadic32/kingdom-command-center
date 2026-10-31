@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { q, one } from '../lib/db.js';
+import { q, one, tx } from '../lib/db.js';
 import { h, bad, intParam, notFound, forbidden } from '../lib/http.js';
 import { requireAuth, isAdmin, has, isAllianceLeader, type SessionUser } from '../lib/auth.js';
 import { audit } from '../lib/audit.js';
@@ -238,4 +238,100 @@ planningRouter.post('/notes/import', h(async (req, res) => {
   }
   if (!dry_run) await audit(u.id, 'import', 'member_notes', null, { matched: matched.length, unmatched: unmatched.length });
   res.json({ matched, unmatched });
+}));
+
+// ---------- Notes list (roster): pasted rows, no account matching required ----------
+const rosterRow = z.object({
+  alliance_tag: z.string().trim().max(12).default(''),
+  name: z.string().trim().min(1).max(80),
+  truegold: z.number().int().min(0).max(1e12).nullable().default(null),
+  free_time: z.string().trim().max(300).default(''),
+  note: z.string().trim().max(1000).default(''),
+});
+
+/** Admin and alliance managers see every row; R4/R5 see rows for their own alliance tag and untagged rows. */
+async function rosterScope(u: SessionUser): Promise<string | null> {
+  if (kingdomWide(u)) return null;
+  const a = await one<{ tag: string }>('SELECT tag FROM alliances WHERE id = $1', [u.alliance_id]);
+  return a?.tag ?? '';
+}
+function requirePlanner(u: SessionUser) {
+  if (!canPlan(u)) throw forbidden('Only the kingdom admin, alliance managers and R4/R5 can open member planning.');
+}
+
+planningRouter.get('/roster', h(async (req, res) => {
+  const u = req.user!; requirePlanner(u);
+  const tag = await rosterScope(u);
+  const rows = await q(
+    `SELECT r.*, c.display_name AS updated_by_name,
+            (SELECT x.id FROM users x WHERE x.deleted_at IS NULL AND (lower(x.ingame_name) = lower(r.name) OR lower(x.display_name) = lower(r.name)) LIMIT 1) AS user_id
+       FROM roster_notes r LEFT JOIN users c ON c.id = r.updated_by
+      WHERE $1::text IS NULL OR upper(r.alliance_tag) = upper($1) OR r.alliance_tag = ''
+      ORDER BY r.sort, r.id`, [tag]);
+  res.json({ rows });
+}));
+
+planningRouter.post('/roster/import', h(async (req, res) => {
+  const u = req.user!; requirePlanner(u);
+  const b = z.object({ rows: z.array(rosterRow).min(1).max(1000), replace: z.boolean().default(false) }).parse(req.body);
+  const tag = await rosterScope(u);
+  await tx(async (c) => {
+    if (b.replace) {
+      await c.query(`DELETE FROM roster_notes WHERE $1::text IS NULL OR upper(alliance_tag) = upper($1) OR alliance_tag = ''`, [tag]);
+    }
+    const start = (await c.query('SELECT COALESCE(max(sort), 0) AS m FROM roster_notes')).rows[0].m as number;
+    let i = 0;
+    for (const r of b.rows) {
+      const allianceTag = tag === null ? r.alliance_tag : (r.alliance_tag || tag);   // R4/R5 rows always land in their alliance
+      if (tag !== null && allianceTag.toUpperCase() !== tag.toUpperCase()) continue;
+      await c.query(
+        `INSERT INTO roster_notes (alliance_tag, name, truegold, free_time, note, sort, created_by, updated_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$7)`,
+        [allianceTag, r.name, r.truegold, r.free_time, r.note, start + ++i, u.id]);
+    }
+  });
+  await audit(u.id, 'import', 'roster_notes', null, { rows: b.rows.length, replace: b.replace });
+  res.json({ saved: b.rows.length });
+}));
+
+planningRouter.post('/roster', h(async (req, res) => {
+  const u = req.user!; requirePlanner(u);
+  const r = rosterRow.parse(req.body);
+  const tag = await rosterScope(u);
+  const row = await one(
+    `INSERT INTO roster_notes (alliance_tag, name, truegold, free_time, note, sort, created_by, updated_by)
+     VALUES ($1,$2,$3,$4,$5,(SELECT COALESCE(max(sort),0)+1 FROM roster_notes),$6,$6) RETURNING *`,
+    [tag === null ? r.alliance_tag : tag, r.name, r.truegold, r.free_time, r.note, u.id]);
+  res.status(201).json({ row });
+}));
+
+async function rosterRowFor(u: SessionUser, id: number) {
+  const row = await one<{ id: number; alliance_tag: string }>('SELECT id, alliance_tag FROM roster_notes WHERE id = $1', [id]);
+  if (!row) throw notFound('Note');
+  const tag = await rosterScope(u);
+  if (tag !== null && row.alliance_tag !== '' && row.alliance_tag.toUpperCase() !== tag.toUpperCase()) throw forbidden();
+  return row;
+}
+
+planningRouter.put('/roster/:id', h(async (req, res) => {
+  const u = req.user!; requirePlanner(u);
+  const row = await rosterRowFor(u, intParam(req.params.id));
+  const r = rosterRow.parse(req.body);
+  await q(`UPDATE roster_notes SET alliance_tag = $2, name = $3, truegold = $4, free_time = $5, note = $6, updated_by = $7, updated_at = now() WHERE id = $1`,
+    [row.id, r.alliance_tag, r.name, r.truegold, r.free_time, r.note, u.id]);
+  res.json({ ok: true });
+}));
+
+planningRouter.delete('/roster/:id', h(async (req, res) => {
+  const u = req.user!; requirePlanner(u);
+  const row = await rosterRowFor(u, intParam(req.params.id));
+  await q('DELETE FROM roster_notes WHERE id = $1', [row.id]);
+  res.json({ ok: true });
+}));
+
+planningRouter.delete('/roster', h(async (req, res) => {
+  const u = req.user!; requirePlanner(u);
+  const tag = await rosterScope(u);
+  const r = await q(`DELETE FROM roster_notes WHERE $1::text IS NULL OR upper(alliance_tag) = upper($1) OR alliance_tag = '' RETURNING id`, [tag]);
+  await audit(u.id, 'delete', 'roster_notes', null, { rows: r.length });
+  res.json({ deleted: r.length });
 }));

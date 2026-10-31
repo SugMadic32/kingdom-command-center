@@ -388,6 +388,20 @@ check('import saved', (await admin.req('GET', `/planning/members/${ids.member}/n
 const dry = (await admin.req('POST', '/planning/notes/import', { rows: [{ name: 'MemberR1', truegold: 1 }], dry_run: true })).body;
 check('dry run does not save', dry.matched.length === 1 && (await admin.req('GET', `/planning/members/${ids.member}/notes`)).body.notes.truegold === 900);
 
+console.log('Notes list');
+check('paste saves rows without matching names', (await admin.req('POST', '/planning/roster/import', { rows: [
+  { alliance_tag: 'GTO', name: 'Dragon rouge', truegold: 1400, free_time: '06:00–08:30' },
+  { alliance_tag: 'GTO', name: 'MemberR1', truegold: 1200, free_time: '00:00–04:00, 13:00–24:00' },
+  { alliance_tag: 'XYZ2', name: 'Other', truegold: 5 }] })).body.saved === 3);
+const ros = (await admin.req('GET', '/planning/roster')).body.rows;
+check('unregistered names kept, registered linked', ros.find((r: any) => r.name === 'Dragon rouge').user_id === null && ros.find((r: any) => r.name === 'MemberR1').user_id === ids.member);
+check('R5 sees own alliance rows only', (await leader.req('GET', '/planning/roster')).body.rows.every((r: any) => r.alliance_tag.toUpperCase() === 'GTO' || r.alliance_tag === ''));
+check('members cannot read notes list', (await member.req('GET', '/planning/roster')).status === 403);
+const dr = ros.find((r: any) => r.name === 'Dragon rouge');
+check('edit a row', (await admin.req('PUT', `/planning/roster/${dr.id}`, { alliance_tag: 'GTO', name: 'Dragon rouge', truegold: 1500, free_time: '06:00–09:00' })).status === 200);
+check('replace list', (await admin.req('POST', '/planning/roster/import', { rows: [{ name: 'Only one', truegold: 1 }], replace: true })).status === 200 &&
+  (await admin.req('GET', '/planning/roster')).body.rows.length === 1);
+
 console.log('Account deletion');
 const del = new Client();
 await del.req('POST', '/auth/login', { email: 'other@example.com', password: 'correct-horse-1' });

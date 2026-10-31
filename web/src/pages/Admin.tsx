@@ -30,7 +30,7 @@ export const actionName = (a: string) => (ACTIONS[a] ? t(ACTIONS[a]) : a.replace
 const RECORDS: Record<string, string> = {
   event: 'event', announcement: 'announcement', alliance: 'alliance', user: 'member', building_level: 'building level',
   dataset_version: 'dataset version', game_building: 'building', kvk_season: 'KVK season', kvk_phase: 'KVK phase',
-  kvk_checklist_item: 'checklist item', integration: 'integration', resource_type: 'resource type', member_planning: 'member planning', member_notes: 'member notes', upgrade_plan: 'upgrade plan',
+  kvk_checklist_item: 'checklist item', integration: 'integration', resource_type: 'resource type', member_planning: 'member planning', member_notes: 'member notes', roster_notes: 'roster notes', upgrade_plan: 'upgrade plan',
   appointment_schedule: 'appointment schedule', appointment_position: 'appointment position',
 };
 const recordName = (r: string) => (RECORDS[r] ? t(RECORDS[r]) : r.replace(/_/g, ' '));
